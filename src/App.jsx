@@ -1,18 +1,48 @@
-import React from 'react';
-import './App.css';
-import { Inicio, Historia, ListaEventos, Ponentes, Contacto } from './secciones';
+import React, { useEffect, useState } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import { Inicio, Historia, ListaEventos, Ponentes, Contacto, Legado, ContadorRegresivo } from './secciones';
 
 const App = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+    });
+  }, []);
+
+  // Refresh AOS cada vez que cambia el menú (importante si layout cambia)
+  useEffect(() => {
+    AOS.refresh();
+  }, [menuOpen]);
+
+  // Cierra el menú cuando se hace click en un enlace
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <div>
       <nav className="navbar">
         <div className="logo">TECNM</div>
-        <ul className="nav-links">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#historia">Historia</a></li>
-          <li><a href="#programas">Lista de Eventos</a></li>
-          <li><a href="#ponentes">Ponentes</a></li>
-          <li><a href="#contacto" className="btn">Contáctanos</a></li>
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen(prev => !prev)}
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+        <ul className={`nav-links ${menuOpen ? 'show' : ''}`}>
+          <li><a href="#inicio" onClick={handleLinkClick}>Inicio</a></li>
+          <li><a href="#historia" onClick={handleLinkClick}>Historia</a></li>
+          <li><a href="#legado" onClick={handleLinkClick}>Legado</a></li>
+          <li><a href="#programas" onClick={handleLinkClick}>Lista de Eventos</a></li>
+          <li><a href="#ponentes" onClick={handleLinkClick}>Ponentes</a></li>
+          <li><a href="#contacto" className="btn" onClick={handleLinkClick}>Contáctanos</a></li>
         </ul>
       </nav>
 
@@ -20,15 +50,34 @@ const App = () => {
         <img src="/logos/logo_sep.png" alt="Logo 1" />
         <img src="/logos/logo_indus.jpg" alt="Logo 2" />
         <img src="/logos/logo_tecnm.jpg" alt="Logo 3" />
-        <img src="/logos/logo4.png" alt="Logo 4" />
+        <img src="/logos/LOGOTIPO ANIVERSARIO COMPLETO.png" alt="Logo 4" />
       </div>
 
-      {/* Usar los componentes importados */}
-      <Inicio />
-      <Historia />
-      <ListaEventos />
-      <Ponentes />
-      <Contacto />
+      <Inicio 
+        titulo="Celebrando 50 años de excelencia académica"
+        descripcion="Bienvenido a la página de 50 aniversario de Instituto Tecnológico de Aguascalientes."
+        dataAos="fade-up"
+      />
+
+      <Historia dataAos="fade-up" />
+
+      <ContadorRegresivo fechaObjetivo="2025-12-31T23:59:59" dataAos="zoom-in" />
+
+      <Legado dataAos="fade-up" />
+
+      <ListaEventos dataAos="fade-up" />
+
+      <Ponentes dataAos="fade-up" />
+
+      <Contacto
+        titulo="CONTACTANOS"
+        subtitulo="¡Hablemos de tu proyecto!"
+        direccion="Av. Adolfo López Mateos Ote. 1801, 20256 Aguascalientes, Aguascalientes · 05 km"
+        email="contacto@miempresa.mx"
+        telefono="Tel: +449 910 5002"
+        mensajeGracias="¡Mensaje recibido, te contactaremos !"
+        dataAos="fade-up"
+      />
     </div>
   );
 };

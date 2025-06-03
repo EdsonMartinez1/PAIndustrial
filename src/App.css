@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 /* Reset básico */
 * {
   margin: 0;
@@ -86,14 +89,16 @@ html, body, #root {
   font-weight: 600;
   text-align: center;
   flex-direction: column;
+  scroll-margin-top: 60px; /* hace que el ancla no quede tapada */
 }
 
 /* Sección inicio con fondo especial */
 .inicio {
-  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80') no-repeat center center/cover;
+  background: url('/logos/P_a_aguascalientes.jpg') no-repeat center center;
+  background-size: cover;  /* para que cubra toda el área */
   color: #ffffff;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-  box-shadow: inset 0 0 0 2000px rgba(128, 0, 32, 0);
+  /*box-shadow: inset 0 0 0 2000px rgba(128, 0, 32, 0.5); /* sombra oscura para texto legible */
 }
 
 .inicio h1 {
@@ -122,7 +127,8 @@ html, body, #root {
     width: 200px;
     padding: 1rem;
     border-radius: 0 0 0 10px;
-    display: none; /* opcional: agregar botón hamburguesa si deseas mostrar */
+    display: flex; /* opcional: agregar botón hamburguesa si deseas mostrar */
+    list-style: none;  
   }
 
   .section {
@@ -144,27 +150,472 @@ html, body, #root {
 /* ===================== */
 
 .logo-bar {
-  display: flex;                       /* Mostrar logos en fila */
-  justify-content: space-evenly;      /* Espacio uniforme entre logos */
-  align-items: center;                /* Alinear verticalmente al centro */
-  padding: 0.5rem 1rem;               /* Espacio interno */
-  background-color: #ffffff;          /* Fondo blanco */
-  border-bottom: 2px solid #d4af37;  /* Línea dorada inferior */
-  margin-top: 5px;                   /* Separación respecto al navbar principal */
-  height: 80px;                      /* Altura fija */
-  position: sticky;                   /* Fija al hacer scroll */
-  top: 60px;                         /* Posición fija debajo del navbar principal */
-  z-index: 999;                      /* Encima de otros elementos */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.4rem 1.5rem; /* menos padding vertical */
+  gap: 1rem;
+  background-color: #ffffff;
+  border-bottom: 2px solid #d4af37;
+  margin-top: 80px; /* menos margen arriba */
+  height: auto; /* quitar altura fija para que se ajuste al contenido */
+  position: sticky;
+  z-index: 900;
 }
 
 .logo-bar img {
-  height: 60px;                      /* Altura del logo */
-  width: auto;                      /* Mantener proporción */
-  object-fit: contain;               /* Ajustar sin deformar */
-  margin: 0 10px;                   /* Separación horizontal */
-  transition: transform 0.3s ease;  /* Animación suave para hover */
+  height: 90px; /* logos un poco más grandes */
+  width: auto;
+  object-fit: contain;
+  margin: 0 10px;
+  transition: transform 0.3s ease;
 }
 
 .logo-bar img:hover {
-  transform: scale(1.05);           /* Aumentar tamaño ligeramente */
+  transform: scale(1.1);
 }
+
+
+  /* Estilos para el reloj */
+.reloj-container {
+  background-color: #3b0a2a; /* Tinto */
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.reloj-titulo {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.reloj-hora {
+  font-size: 2.5rem;
+  color: #d4af37; /* Dorado */
+  font-weight: bold;
+}
+
+/* ===================== */
+/* Legado
+/* ===================== */
+
+.legado-container {
+  background-color: #f9f6f0;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #4b1d24;
+}
+
+.legado-titulo {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #800020;
+}
+
+.legado-grid {
+   display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Siempre 4 columnas iguales */
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.legado-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  word-wrap: break-word;        /* para forzar salto de línea si hace falta */
+  overflow-wrap: break-word;
+}
+
+.legado-card:hover {
+  transform: translateY(-5px);
+}
+
+.legado-card h3 {
+  font-size: 2.2rem;
+  color: #d4af37;
+  margin-bottom: 0.5rem;
+}
+
+.legado-card p {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+
+
+/* ===================== */
+/* CONTACTO
+/* ===================== */
+
+/* Estilos generales */
+.section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* Colores base */
+:root {
+  --tinto: #800000;
+  --dorado: #d4af37;
+  --blanco: #ffffff;
+}
+
+/* CONTACTO */
+
+.contacto-section {
+  background-color: var(--blanco);
+  padding: 4rem 2rem;
+}
+
+.contacto-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.info-contacto {
+  flex: 1;
+  min-width: 300px;
+  background-color: var(--tinto);
+  color: var(--blanco);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: left;
+}
+
+.info-contacto h5 {
+  color: var(--dorado);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.info-contacto h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.info-contacto p {
+  margin-bottom: 0.5rem;
+}
+
+.social-icons {
+  margin-top: 1rem;
+}
+
+.social-icons i {
+  font-size: 1.5rem;
+  color: var(--dorado);
+  margin-right: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.social-icons i:hover {
+  transform: scale(1.2);
+}
+
+.formulario-contacto {
+  flex: 1;
+  min-width: 300px;
+  padding: 2rem;
+  background-color: var(--blanco);
+  border: 2px solid var(#ffffff);  /* Borde Formulario*/
+  border-radius: 1rem;
+  text-align: left;
+}
+
+.nombre-apellido {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(#ffffff);
+  border-radius: 0.5rem;
+  color: var(#ffffff);
+}
+
+.formulario-contacto button {
+  background-color: var(--dorado);
+  color: var(--tinto);
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario-contacto button:hover {
+  background-color: #b8962d;
+}
+
+.gracias {
+  margin-top: 1rem;
+  color: var(--tinto);
+  font-weight: bold;
+}
+
+/* ===================== */
+/* HAMBURGUESA
+/* ===================== */
+/* ===================== */
+/* HAMBURGUESA Y NAV EN MÓVIL */
+/* ===================== */
+
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    z-index: 1100;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #800020;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    width: 200px;
+    padding: 1rem;
+    border-radius: 0 0 0 10px;
+    list-style: none;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
+
+
+/* ===================== */
+/* CONTADOR
+/* ===================== */
+
+
+.contador-contenedor {
+  background-color: #800020;
+  color: #d4af37;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contador-titulo {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.contador-tiempo-contenedor {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.contador-unidad-contenedor {
+  background-color: #4b1d24;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  min-width: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.contador-numero {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #d4af37;
+  text-shadow: 0 0 10px #d4af37;
+}
+
+.contador-etiqueta {
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  color: #f5deb3;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+
+
+
+
+.programas-section {
+  background: #800000; /* Tinto */
+  color: #ffffff;
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+.programas-subtitulo {
+  color: #FFD700; /* Dorado */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.programas-titulo {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 60px;
+  color: white;
+}
+
+.programas-grid {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.programa-item {
+  max-width: 280px;
+  text-align: center;
+}
+
+.programa-item h3 {
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.programa-item p {
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.icono {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* Simula el estilo visual con figuras geométricas */
+
+.icono-circulos::before,
+.icono-circulos::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: #FFD700;
+}
+
+.icono-circulos::before {
+  width: 40px;
+  height: 40px;
+  background: #FFD700;
+  left: 0;
+  top: 20px;
+}
+
+.icono-circulos::after {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  left: 20px;
+  top: 0;
+}
+
+.icono-paloma::before,
+.icono-paloma::after {
+  content: '';
+  position: absolute;
+  background: #FFD700;
+  border-radius: 10px;
+}
+
+.icono-paloma::before {
+  width: 50px;
+  height: 10px;
+  transform: rotate(45deg);
+  left: 10px;
+  top: 40px;
+}
+
+.icono-paloma::after {
+  width: 40px;
+  height: 10px;
+  transform: rotate(-45deg);
+  left: 30px;
+  top: 40px;
+}
+
+.icono-cuadros::before,
+.icono-cuadros::after {
+  content: '';
+  position: absolute;
+  background: #FFD700;
+}
+
+.icono-cuadros::before {
+  width: 30px;
+  height: 30px;
+  left: 0;
+  top: 0;
+}
+
+.icono-cuadros::after {
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  left: 20px;
+  top: 20px;
+}
+
+.btn-contacto {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: #FFD700;
+  color: #800000;
+  padding: 14px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-contacto:hover {
+  background: #e6c200;
+}
+
+
