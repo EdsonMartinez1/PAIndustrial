@@ -161,6 +161,7 @@ html, body, #root {
   height: auto; /* quitar altura fija para que se ajuste al contenido */
   position: sticky;
   z-index: 900;
+  flex-wrap: wrap; /* permite que los logos se envuelvan si no caben */
 }
 
 .logo-bar img {
@@ -175,8 +176,23 @@ html, body, #root {
   transform: scale(1.1);
 }
 
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 768px) {
+  .logo-bar {
+    flex-direction: column; /* los logos en columna */
+    gap: 1rem;
+    padding: 1rem 0;
+  }
 
-  /* Estilos para el reloj */
+  .logo-bar img {
+    height: 70px; /* tamaño un poco más pequeño en móvil */
+    margin: 5px 0;
+  }
+}
+
+ /* ------------------------*/
+/* Estilos para el reloj */
+ /* ------------------------*/
 .reloj-container {
   background-color: #3b0a2a; /* Tinto */
   color: white;
@@ -214,11 +230,12 @@ html, body, #root {
 }
 
 .legado-grid {
-   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Siempre 4 columnas iguales */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas grandes */
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .legado-card {
@@ -227,7 +244,7 @@ html, body, #root {
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
-  word-wrap: break-word;        /* para forzar salto de línea si hace falta */
+  word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
@@ -244,6 +261,27 @@ html, body, #root {
 .legado-card p {
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+/* ✅ Adaptación responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .legado-grid {
+    grid-template-columns: 1fr; /* Solo una columna en móvil */
+    padding: 0 1rem;
+  }
+
+  .legado-card {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .legado-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .legado-card p {
+    font-size: 1rem;
+  }
 }
 
 
@@ -631,6 +669,7 @@ html, body, #root {
     }
 
     .carta {
+      max-width: 100%;
       width: 13rem;
       border-radius: 0.5rem;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -658,6 +697,7 @@ html, body, #root {
     }
 
     .txt-body {
+      word-break: break-word;
       position: relative;
       padding: 1rem;
       text-align: center;
@@ -676,6 +716,12 @@ html, body, #root {
       color: #992222;
       margin: 0.5rem 0;
     }
+
+    a:focus, button:focus {
+  outline: 2px dashed var(--dorado);
+  outline-offset: 4px;
+    }
+
 
     .tooltip {
       position: absolute;
@@ -698,6 +744,9 @@ html, body, #root {
     .carta:active .tooltip {
       opacity: 1;
     }
+
+
+    
  .modal {
   position: fixed;
   top: 0;
@@ -794,10 +843,16 @@ html, body, #root {
   padding: 1rem 0;
   position: relative;
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .historia-timeline::-webkit-scrollbar {
   display: none;
+}
+
+.historia-timeline::-webkit-scrollbar-thumb {
+  background-color: #800020;
+  border-radius: 3px;
 }
 
 .historia-evento {
@@ -869,6 +924,8 @@ html, body, #root {
 @media (max-width: 768px) {
   .historia-timeline {
     flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
     align-items: center;
   }
 
