@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -45,7 +46,7 @@ const App = () => {
           <li><a href="#contacto" className="btn" onClick={handleLinkClick}>Contáctanos</a></li>
         </ul>
       </nav>
-
+      
       <div className="logo-bar">
         <img src="/logos/logo_sep.png" alt="Logo 1" />
         <img src="/logos/logo_indus.jpg" alt="Logo 2" />
@@ -58,10 +59,11 @@ const App = () => {
         descripcion="Bienvenido a la página de 50 aniversario de Instituto Tecnológico de Aguascalientes."
         dataAos="fade-up"
       />
-
+<br />
+<br />
       <Historia dataAos="fade-up" />
 
-      <ContadorRegresivo fechaObjetivo="2025-12-31T23:59:59" dataAos="zoom-in" />
+      <ContadorRegresivo fechaObjetivo="2025-12-31T23:59:59" dataAos="zoom-in"  />
 
       <Legado dataAos="fade-up" />
 
@@ -71,9 +73,9 @@ const App = () => {
 
       <Contacto
         titulo="CONTACTANOS"
-        subtitulo="¡Hablemos de tu proyecto!"
+        subtitulo="¡Platicanos de tus dudas, te escucharesmo!"
         direccion="Av. Adolfo López Mateos Ote. 1801, 20256 Aguascalientes, Aguascalientes · 05 km"
-        email="contacto@miempresa.mx"
+        email="ita@aguascalientes.tecnm.mx"
         telefono="Tel: +449 910 5002"
         mensajeGracias="¡Mensaje recibido, te contactaremos !"
         dataAos="fade-up"

@@ -1,6 +1,5 @@
 // Secciones.js
 import { useEffect, useState } from 'react';
-
 import './App.css';
 
 
@@ -20,8 +19,60 @@ export const Inicio = ({ titulo, descripcion, dataAos }) => (
 HISTORIA
 ----------------*/ 
 
+export const Historia = () => {
+  const eventos = [
+  {
+    titulo: "Fundación del ITA",
+    año: "1967",
+    descripcion: "Se crea el Instituto Tecnológico de Aguascalientes, ofreciendo la carrera de Ingeniería Industrial en sus primeras modalidades."
+  },
+  {
+    titulo: "Primera Generación de Egresados",
+    año: "1974",
+    descripcion: "Se gradúan los primeros ingenieros industriales del ITA en las especialidades de Mecánica y Electricidad."
+  },
+  {
+    titulo: "Formación de la Academia de Ingeniería Industrial",
+    año: "1975",
+    descripcion: "Se establece formalmente la academia encargada del desarrollo académico de la carrera de Ingeniería Industrial."
+  },
+  {
+    titulo: "Construcción de Laboratorios",
+    año: "1980",
+    descripcion: "Se inaugura el Laboratorio de Ingeniería de Métodos, fortaleciendo la práctica profesional en la carrera."
+  },
+  {
+    titulo: "Reconocimiento Nacional ANFEI",
+    año: "2024",
+    descripcion: "El ITA es nombrado Mejor Escuela de Ingeniería en México por la ANFEI, con programas de Ingeniería Industrial acreditados nacional e internacionalmente."
+  }
+];
+
+
+  return (
+    <section class="historia-wrapper">
+      <h2 className="historia-title">Historia a travez del tiempo</h2>
+      <div className="historia-timeline">
+        {eventos.map((evento, index) => (
+          <div key={index} className="historia-evento">
+            <div className="historia-linea-conectora" />
+            <div className="historia-circulo">{index + 1}</div>
+            <div className="historia-card">
+              <h3 className="evento-titulo">{evento.titulo}</h3>
+              <span className="evento-anio">{evento.año}</span>
+              <p className="evento-desc">{evento.descripcion}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+/*
 export const Historia = () => (
   <section id="historia" className="section">
+    
     <h2>Historia del Instituto Tecnológico de Aguascalientes</h2>
     <p>
       Fundado hace más de 50 años, el Instituto Tecnológico de Aguascalientes ha sido un pilar fundamental en la formación de profesionales de alta calidad para el desarrollo industrial y tecnológico de la región.
@@ -37,7 +88,7 @@ export const Historia = () => (
     </p>
   </section>
 );
-
+*/
 /*---------------
 LISTA EVENTOS
 ----------------*/ 
@@ -45,24 +96,24 @@ export const ListaEventos = () => (
   <section id="programas" className="programas-section">
     <p className="programas-subtitulo">NUESTROS PROGRAMAS</p>
     <h2 className="programas-titulo">Llevando tu educación al siguiente nivel</h2>
+<div className="programas-grid">
+  <div className="programa-item">
+    <div className="icono icono-circulos"></div>
+    <h3>Programas Académicos</h3>
+    <p>Explora nuevas ideas, comparte conocimientos y aprende de los mejores. Únete a nuestras conferencias, talleres y encuentros con expertos que transformarán tu forma de pensar.</p>
+  </div>
+  <div className="programa-item">
+    <div className="icono icono-paloma"></div>
+    <h3>Orientación Profesional</h3>
+    <p>Descubre tu camino con charlas inspiradoras, experiencias reales y asesoría personalizada que te impulsarán hacia un futuro brillante.</p>
+  </div>
+  <div className="programa-item">
+    <div className="icono icono-cuadros"></div>
+    <h3>Desarrollo Social</h3>
+    <p>Conecta, compite y crece. Participa en torneos, eventos recreativos y actividades que unen el aprendizaje con la diversión y el compañerismo.</p>
+  </div>
+</div>
 
-    <div className="programas-grid">
-      <div className="programa-item">
-        <div className="icono icono-circulos"></div>
-        <h3>Programas Académicos</h3>
-        <p>Haz clic aquí para conocer más sobre nuestros programas educativos.</p>
-      </div>
-      <div className="programa-item">
-        <div className="icono icono-paloma"></div>
-        <h3>Orientación Profesional</h3>
-        <p>Descubre cómo nuestra orientación profesional puede impulsar tu futuro.</p>
-      </div>
-      <div className="programa-item">
-        <div className="icono icono-cuadros"></div>
-        <h3>Desarrollo Integral</h3>
-        <p>Conoce cómo nuestro enfoque integral en la formación académica te prepara para todo.</p>
-      </div>
-    </div>
 
   </section>
 );
@@ -72,11 +123,78 @@ export const ListaEventos = () => (
 PONENTES
 ----------------*/ 
 
-export const Ponentes = () => (
-  <section id="ponentes" className="section">
-    Ponentes
-  </section>
-);
+export const Ponentes = () => {
+  const [ponenteSeleccionado, setPonenteSeleccionado] = useState(null);
+
+  const ponentes = [
+    {
+      nombre: "GABRIELA GUADALUPEZ ALCANTAR",
+      imagen: "./ponentes/ponente1.jpg",
+      titulo: "Aplicaciones de la ingeniería industrial",
+      carrera: "Ingeniero industrial",
+      descripcion: "Explora cómo se aplican principios de ingeniería industrial en sectores clave."
+    },
+    {
+      nombre: "IVANNA SOPHIA CALZADA MARTINEZ",
+      imagen: "./ponentes/ponente2.jpg",
+      titulo: "Conceptos y usos de IA para la ingeniería industrial",
+      descripcion: "Una introducción práctica a la inteligencia artificial en la ingeniería industrial."
+    },
+    {
+      nombre: "JAVIER LOPEZ RODRIGUEZ",
+      imagen: "./ponentes/ponente3.jpg",
+      titulo: "Casos multidisciplinarios para la ingeniería industrial",
+      descripcion: "Análisis de estudios de caso donde convergen distintas disciplinas en la industria."
+    },
+    {
+      nombre: "RODOLFO PILATES",
+      imagen: "./ponentes/ponente3.jpg",
+      titulo: "Casos multidisciplinarios para la ingeniería industrial",
+      descripcion: "Otra perspectiva sobre integración de conocimientos en ingeniería."
+    },
+    {
+      nombre: "JESUS DE SANTIAGO LENK",
+      imagen: "./ponentes/ponente3.jpg",
+      titulo: "Casos multidisciplinarios para la ingeniería industrial",
+      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales."
+    }
+  ];
+
+  const abrirModal = (ponente) => {
+    setPonenteSeleccionado(ponente);
+  };
+
+  const cerrarModal = () => {
+    setPonenteSeleccionado(null);
+  };
+
+  return (
+    <section id="ponentes" className="section section-ponentes">
+      <div className="cartas-container">
+        {ponentes.map((ponente, index) => (
+          <section key={index} className="carta" tabIndex="0" onClick={() => abrirModal(ponente)}>
+            <div className="tooltip">{ponente.nombre}</div>
+            <img src={ponente.imagen} alt={ponente.nombre} className="txt-image" />
+            <div className="txt-body">
+              <p className="txt-titulo">{ponente.titulo}</p>
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {ponenteSeleccionado && (
+        <div className="modal" onClick={cerrarModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal}>&times;</span>
+            <h2 id="modal-title">{ponenteSeleccionado.titulo}</h2>
+            <p id="modal-description">{ponenteSeleccionado.descripcion}</p>
+            <p><strong>Ponente:</strong> {ponenteSeleccionado.nombre}</p>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
 
 
 /*---------------
