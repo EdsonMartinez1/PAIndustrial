@@ -50,8 +50,8 @@ export const Historia = () => {
 
 
   return (
-    <section class="historia-wrapper">
-      <h2 className="historia-title">Historia a travez del tiempo</h2>
+    <section id="historia" className="historia-wrapper">
+      <h2 className="historia-title">Historia a través del tiempo</h2>
       <div className="historia-timeline">
         {eventos.map((evento, index) => (
           <div key={index} className="historia-evento">
@@ -203,6 +203,7 @@ CONTACTO
 
 
 // Componente de información de contacto
+// Componente de información de contacto
 export const InfoContacto = ({ titulo, subtitulo, direccion, email, telefono, dataAos }) => (
   <div className="info-contacto" data-aos={dataAos}>
     <h5>{titulo}</h5>
@@ -214,40 +215,39 @@ export const InfoContacto = ({ titulo, subtitulo, direccion, email, telefono, da
       <i className="fab fa-facebook"></i>
       <i className="fab fa-twitter"></i>
     </div>
+
+    <div className="mapa-container">
+     <iframe
+      title="Ubicación ITAB Aguascalientes"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3731.366132914335!2d-102.26259533885168!3d21.87844867056218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1717621234567!5m2!1ses!2smx"
+      width="100%"
+      height="250"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+/>
+
+    </div>
   </div>
 );
 
-// Componente de formulario de contacto
-export const FormularioContacto = ({ mensajeGracias, dataAos }) => {
-  const [mensajeEnviado, setMensajeEnviado] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setMensajeEnviado(true);
-  };
-
+// Componente de formulario de contacto (visual vacío)
+export const FormularioContacto = ({ dataAos }) => {
   return (
-    <form className="formulario-contacto" onSubmit={handleSubmit} data-aos={dataAos}>
-      <div className="nombre-apellido">
-        <input type="text" placeholder="Nombre" />
-        <input type="text" placeholder="Apellido" />
-      </div>
-      <input type="email" placeholder="Correo electrónico *" required />
-      <textarea placeholder="Déjanos un mensaje" rows="4"></textarea>
-      <button type="submit">Enviar</button>
-      {mensajeEnviado && <p className="gracias">{mensajeGracias}</p>}
+    <form className="formulario-contacto" data-aos={dataAos}>
+      {/* Recuadro visual sin campos */}
     </form>
   );
 };
 
-// Componente principal con diseño limpio
 export const Contacto = ({
   titulo,
   subtitulo,
   direccion,
   email,
   telefono,
-  mensajeGracias,
   dataAosInfo,
   dataAosForm,
 }) => {
@@ -262,10 +262,7 @@ export const Contacto = ({
           telefono={telefono}
           dataAos={dataAosInfo}
         />
-        <FormularioContacto
-          mensajeGracias={mensajeGracias}
-          dataAos={dataAosForm}
-        />
+        <FormularioContacto dataAos={dataAosForm} />
       </div>
     </section>
   );

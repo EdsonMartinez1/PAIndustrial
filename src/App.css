@@ -94,7 +94,7 @@ html, body, #root {
 
 /* Sección inicio con fondo especial */
 .inicio {
-  background: url('/logos/P_a_aguascalientes.jpg') no-repeat center center;
+  background: url('/logos/P_a_aguascalientes2.jpg') no-repeat center center;
   background-size: cover;  /* para que cubra toda el área */
   color: #ffffff;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
@@ -179,7 +179,7 @@ html, body, #root {
 /* Adaptación para pantallas pequeñas */
 @media (max-width: 768px) {
   .logo-bar {
-    flex-direction: column; /* los logos en columna */
+    flex-direction: row; /* los logos en columna */
     gap: 1rem;
     padding: 1rem 0;
   }
@@ -312,7 +312,7 @@ html, body, #root {
 
 .contacto-grid {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 2rem;
   max-width: 1100px;
   margin: 0 auto;
@@ -361,15 +361,6 @@ html, body, #root {
   transform: scale(1.2);
 }
 
-.formulario-contacto {
-  flex: 1;
-  min-width: 300px;
-  padding: 2rem;
-  background-color: var(--blanco);
-  border: 2px solid var(#ffffff);  /* Borde Formulario*/
-  border-radius: 1rem;
-  text-align: left;
-}
 
 .nombre-apellido {
   display: flex;
@@ -504,6 +495,32 @@ html, body, #root {
   color: #f5deb3;
   letter-spacing: 1px;
   font-weight: 600;
+}
+
+/* Adaptación para móviles */
+@media (max-width: 768px) {
+  .contador-contenedor {
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+  }
+
+  .contador-tiempo-contenedor {
+    gap: 1rem;
+    flex-wrap: wrap; /* Para que se ajusten si no caben */
+  }
+
+  .contador-unidad-contenedor {
+    min-width: 55px;
+    padding: 0.8rem 1rem;
+  }
+
+  .contador-numero {
+    font-size: 2rem;
+  }
+
+  .contador-etiqueta {
+    font-size: 0.75rem;
+  }
 }
 
 
@@ -948,3 +965,11 @@ html, body, #root {
     text-align: left;
   }
 }
+
+.mapa-container {
+  margin-top: 1.5rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+

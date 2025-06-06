@@ -29,7 +29,10 @@ const App = () => {
   return (
     <div>
       <nav className="navbar">
-        <div className="logo">TECNM</div>
+        <div className="logo">
+  <img src="/logos/LOGOTIPO ANIVERSARIO COMPLETO.png" style={{ height: "40px", marginRight: "8px" }} />
+  TecNM
+</div>
         <button
           className="hamburger"
           onClick={() => setMenuOpen(prev => !prev)}
@@ -51,7 +54,7 @@ const App = () => {
         <img src="/logos/logo_sep.png" alt="Logo 1" />
         <img src="/logos/logo_indus.jpg" alt="Logo 2" />
         <img src="/logos/logo_tecnm.jpg" alt="Logo 3" />
-        <img src="/logos/LOGOTIPO ANIVERSARIO COMPLETO.png" alt="Logo 4" />
+        <img src="/logos/logo_ITA.png" alt="Logo 4" />
       </div>
 
       <Inicio 
@@ -63,7 +66,7 @@ const App = () => {
 <br />
       <Historia dataAos="fade-up" />
 
-      <ContadorRegresivo fechaObjetivo="2025-12-31T23:59:59" dataAos="zoom-in"  />
+      <ContadorRegresivo fechaObjetivo="2025-10-13T00:00:00" dataAos="zoom-in" />
 
       <Legado dataAos="fade-up" />
 
