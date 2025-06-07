@@ -30,8 +30,16 @@ const App = () => {
     <div>
       <nav className="navbar">
         <div className="logo">
-  <img src="/logos/LOGOTIPO ANIVERSARIO COMPLETO.png" style={{ height: "40px", marginRight: "8px" }} />
-  TecNM
+  <img
+  src="/logos/LOGOTIPO ANIVERSARIO COMPLETO.png"
+  style={{
+    height: "40px",
+    marginRight: "8px",
+    backgroundColor: "#ffffff", // o #fef3c7 (dorado claro)
+    borderRadius: "8px",
+    padding: "4px"
+  }}
+/>
 </div>
         <button
           className="hamburger"
