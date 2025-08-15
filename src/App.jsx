@@ -84,7 +84,7 @@ const App = () => {
 
       <Contacto
         titulo="CONTACTANOS"
-        subtitulo="¡Platicanos de tus dudas, te escucharesmo!"
+        subtitulo="¡Platicanos de tus dudas, te escucharemos!"
         direccion="Av. Adolfo López Mateos Ote. 1801, 20256 Aguascalientes, Aguascalientes · 05 km"
         email="ita@aguascalientes.tecnm.mx"
         telefono="Tel: +449 910 5002"
