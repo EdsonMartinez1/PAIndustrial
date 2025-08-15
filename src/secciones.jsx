@@ -252,6 +252,7 @@ export const Contacto = ({
   dataAosForm,
 }) => {
   return (
+    <>
     <section id="contacto" className="contacto-section">
       <div className="contacto-grid">
         <InfoContacto
@@ -265,6 +266,16 @@ export const Contacto = ({
         <FormularioContacto dataAos={dataAosForm} />
       </div>
     </section>
+    <section id="contacto" class="blog-section">
+      <div class="blog-container">
+        <p>
+          Descubre las últimas noticias y artículos sobre el   
+          <span> Instituto Tecnológico de Aguascalientes</span>.
+        </p>
+        <a href="https://ita40.blogspot.com/2024/09/" class="blog-btn">Visitamos en →</a>
+      </div>
+    </section>
+    </>
   );
 };
 

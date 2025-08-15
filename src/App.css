@@ -311,10 +311,56 @@ html, body, #root {
 }
 
 /* CONTACTO */
+.blog-section {
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+.blog-container {
+  background-color: var(--tinto);
+  color: var(--blanco);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.blog-container p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.blog-container p span {
+  font-weight: 600;
+}
+
+.blog-btn {
+  background-color: var(--blanco);
+  color: var(--tinto);
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px; /* botón redondito */
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.blog-btn:hover {
+  background-color: rgba(255,255,255,0.9);
+  transform: scale(1.05);
+}
 
 .contacto-section {
   background-color: var(--blanco);
-  padding: 4rem 2rem;
+  padding: 4rem 2rem 0;
 }
 
 .contacto-grid {
