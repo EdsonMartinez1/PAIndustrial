@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 
 import { Inicio, Historia, ListaEventos, Ponentes, Contacto, Legado, ContadorRegresivo } from './secciones';
 
+
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 

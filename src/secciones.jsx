@@ -128,35 +128,60 @@ export const Ponentes = () => {
 
   const ponentes = [
     {
-      nombre: "GABRIELA GUADALUPEZ ALCANTAR",
+      nombre: "LUIS SOCONINI",
       imagen: "./ponentes/ponente1.jpg",
-      titulo: "Aplicaciones de la ingeniería industrial",
-      carrera: "Ingeniero industrial",
-      descripcion: "Explora cómo se aplican principios de ingeniería industrial en sectores clave."
+      titulo: "Metodología Lean Six Sigma e IA 4.0: innovacíon y Certificacíon para la competitividad Global",
+      carrera: "Director General de Lean Six Sigma Institute",
+      descripcion: "Explora cómo se aplican principios de ingeniería industrial en sectores clave.",
+      fecha: "Miercoles 15 de octubre, 13:00 hrs."
     },
     {
-      nombre: "IVANNA SOPHIA CALZADA MARTINEZ",
+      nombre: "ABRAHAM HERNÁNDEZ ",
       imagen: "./ponentes/ponente2.jpg",
-      titulo: "Conceptos y usos de IA para la ingeniería industrial",
-      descripcion: "Una introducción práctica a la inteligencia artificial en la ingeniería industrial."
+      titulo: "Innovacíon y Valor en la Logística ",
+      carrera: "Gerente Regional de Ing. Industrial NPW Nissan North America",
+      descripcion: "Una introducción práctica a la inteligencia artificial en la ingeniería industrial.",
+      fecha: "Miercoles 15 de octubre, 16:00 hrs"
     },
     {
-      nombre: "JAVIER LOPEZ RODRIGUEZ",
+      nombre: "ALEJANDRO LARA",
       imagen: "./ponentes/ponente3.jpg",
-      titulo: "Casos multidisciplinarios para la ingeniería industrial",
-      descripcion: "Análisis de estudios de caso donde convergen distintas disciplinas en la industria."
+      titulo: "Innovación, Liderazgo y Disciplina: Claves de un Camino Profesional",
+      carrera: "Director de control de produccíon y Cadena de Suministro - COMPAS",
+      descripcion: "Análisis de estudios de caso donde convergen distintas disciplinas en la industria.",
+      fecha: "Jueves 16 de octubre, 16:00 hrs"
     },
     {
-      nombre: "RODOLFO PILATES",
+      nombre: "RODRIGO MAGALLANES DEL RIO",
       imagen: "./ponentes/ponente3.jpg",
-      titulo: "Casos multidisciplinarios para la ingeniería industrial",
-      descripcion: "Otra perspectiva sobre integración de conocimientos en ingeniería."
+      titulo: "Del caos al control: estrategias para transformar la crisis en éxito",
+      carrera: "Head of Operations () Continental",
+      descripcion: "Otra perspectiva sobre integración de conocimientos en ingeniería.",
+      fecha: "Viernes 17 de octubre, 13:00 htr"
     },
     {
-      nombre: "JESUS DE SANTIAGO LENK",
+      nombre: "ROMEO MUÑOZ",
       imagen: "./ponentes/ponente3.jpg",
-      titulo: "Casos multidisciplinarios para la ingeniería industrial",
-      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales."
+      titulo: "Kikubari Kaizen el detalle invisible que transforma la manofactura",
+      carrera: "Consultor CX 6 sigma y NPS",
+      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      fecha: "Jueves 16 de octubre, 13:00 hrs"
+    },
+    {
+      nombre: "PANEL",
+      imagen: "./ponentes/ponente3.jpg",
+      titulo: "Mujer Industriales: Legado y Futuro",
+      carrera: "",
+      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      fecha: "Martes 14 de octubre, 19:00 hrs"
+    },
+    {
+      nombre: "CONFERENCIAS VIRTUALES",
+      imagen: "./ponentes/ponente3.jpg",
+      titulo: "Egresados en la Modalidad a Distancia",
+      carrera: "Consultor CX 6 sigma y NPS",
+      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      fecha: "Lunes 13 al Viernes 17 de octubre, 12:00 hrs"
     }
   ];
 
@@ -180,15 +205,21 @@ export const Ponentes = () => {
             </div>
           </section>
         ))}
+        
+      </div>
+      <div className="inscripcion-container">
+        <a href="./Inscripcion.jsx"><button>Inscribe aqui !!! </button></a>
       </div>
 
       {ponenteSeleccionado && (
         <div className="modal" onClick={cerrarModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close" onClick={cerrarModal}>&times;</span>
+            <p className="modal-date">{ponenteSeleccionado.fecha}</p>
             <h2 id="modal-title">{ponenteSeleccionado.titulo}</h2>
             <p id="modal-description">{ponenteSeleccionado.descripcion}</p>
             <p><strong>Ponente:</strong> {ponenteSeleccionado.nombre}</p>
+            <p>{ponenteSeleccionado.carrera}</p>
           </div>
         </div>
       )}
@@ -327,11 +358,11 @@ export const Legado = () => (
         <p>Años de excelencia académica</p>
       </div>
       <div className="legado-card">
-        <h3>150</h3>
+        <h3>76</h3>
         <p>Profesores comprometidos</p>
       </div>
       <div className="legado-card">
-        <h3>20,000+</h3>
+        <h3>4,800+</h3>
         <p>Graduados exitosos</p>
       </div>
       <div className="legado-card">
