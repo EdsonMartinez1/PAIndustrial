@@ -67,29 +67,49 @@ export const Historia = () => {
 /*---------------
  LISTA EVENTOS
 ----------------*/ 
-export const ListaEventos = () => (
+import { useNavigate } from 'react-router-dom';
+
+export const ListaEventos = () => {
+  const navigate = useNavigate(); // ✅ hook dentro del cuerpo de la función
+
+
+  return(
+
   <section id="programas" className="programas-section">
     <p className="programas-subtitulo">NUESTROS PROGRAMAS</p>
     <h2 className="programas-titulo">Llevando tu educación al siguiente nivel</h2>
-    <div className="programas-grid">
-      <div className="programa-item">
-        <div className="icono icono-circulos"></div>
-        <h3>Programas Académicos</h3>
-        <p>Explora nuevas ideas, comparte conocimientos y aprende de los mejores. Únete a nuestras conferencias, talleres y encuentros con expertos que transformarán tu forma de pensar.</p>
+
+  <div className="programas-grid">
+  <div className="programa-item">
+    <div className="icono icono-circulos"></div>
+    <h3>Programas Académicos</h3>
+    <p>Explora nuevas ideas, comparte conocimientos y aprende de los mejores. Únete a nuestras conferencias, talleres y encuentros con expertos que transformarán tu forma de pensar.</p>
+  </div>
+  <div className="programa-item">
+    <div className="icono icono-paloma"></div>
+    <h3>Orientación Profesional</h3>
+    <p>Descubre tu camino con charlas inspiradoras, experiencias reales y asesoría personalizada que te impulsarán hacia un futuro brillante.</p>
+  </div>
+  <div className="programa-item">
+    <div className="icono icono-cuadros"></div>
+    <h3>Desarrollo Social</h3>
+    <p>Conecta, compite y crece. Participa en torneos, eventos recreativos y actividades que unen el aprendizaje con la diversión y el compañerismo.</p>
+  </div>
+</div>
+
+
+   
+      {/* Botón con navigate */}
+      <div className="text-center mt-6">
+        <button
+          onClick={() => navigate('/talleres-industrial')}
+           className="ver-programas-button"> 
+           Ver Talleres 
+        </button>
       </div>
-      <div className="programa-item">
-        <div className="icono icono-paloma"></div>
-        <h3>Orientación Profesional</h3>
-        <p>Descubre tu camino con charlas inspiradoras, experiencias reales y asesoría personalizada que te impulsarán hacia un futuro brillante.</p>
-      </div>
-      <div className="programa-item">
-        <div className="icono icono-cuadros"></div>
-        <h3>Desarrollo Social</h3>
-        <p>Conecta, compite y crece. Participa en torneos, eventos recreativos y actividades que unen el aprendizaje con la diversión y el compañerismo.</p>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 /*---------------
  PONENTES

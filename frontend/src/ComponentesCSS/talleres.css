@@ -1,0 +1,44 @@
+/* talleres.css */
+
+.nueva-pagina-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+  background: linear-gradient(to right, #4b0000, #7f1d1d); /* tonos tinto */
+  text-align: center;
+  color: #fff; /* texto blanco */
+}
+
+.nueva-pagina-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffd700; /* dorado */
+  margin-bottom: 1rem;
+}
+
+.nueva-pagina-text {
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+  color: #fff; /* blanco */
+}
+
+.nueva-pagina-button {
+  margin-top: 2rem;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  color: #4b0000; /* texto tinto */
+  background: linear-gradient(to right, #ffd700, #fbbf24); /* dorado degradado */
+  border-radius: 9999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nueva-pagina-button:hover {
+  background: linear-gradient(to right, #fbbf24, #ffd700);
+  transform: scale(1.05);
+  color: #4b0000;
+}
