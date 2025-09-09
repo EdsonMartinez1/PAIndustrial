@@ -1,10 +1,10 @@
-// Secciones.js
-import { useEffect, useState } from 'react';
-import './App.css';
+// secciones.jsx
 
-/*---------------
- INICIO
-----------------*/ 
+import { useNavigate } from 'react-router-dom';
+import './App.css';
+import React, { useState, useEffect, useCallback } from "react";
+
+/*---------------  INICIO ----------------*/
 export const Inicio = ({ titulo, descripcion, dataAos }) => (
   <section id="inicio" className="section inicio" data-aos={dataAos}>
     <h1>{titulo}</h1>
@@ -12,35 +12,38 @@ export const Inicio = ({ titulo, descripcion, dataAos }) => (
   </section>
 );
 
-/*---------------
- HISTORIA
-----------------*/ 
+/*---------------  HISTORIA ----------------*/
 export const Historia = () => {
   const eventos = [
     {
       titulo: "Fundación del ITA",
       año: "1967",
-      descripcion: "Se crea el Instituto Tecnológico de Aguascalientes, ofreciendo la carrera de Ingeniería Industrial en sus primeras modalidades."
+      descripcion:
+        "Se crea el Instituto Tecnológico de Aguascalientes, ofreciendo la carrera de Ingeniería Industrial en sus primeras modalidades."
     },
     {
       titulo: "Primera Generación de Egresados",
       año: "1974",
-      descripcion: "Se gradúan los primeros ingenieros industriales del ITA en las especialidades de Mecánica y Electricidad."
+      descripcion:
+        "Se gradúan los primeros ingenieros industriales del ITA en las especialidades de Mecánica y Electricidad."
     },
     {
       titulo: "Formación de la Academia de Ingeniería Industrial",
       año: "1975",
-      descripcion: "Se establece formalmente la academia encargada del desarrollo académico de la carrera de Ingeniería Industrial."
+      descripcion:
+        "Se establece formalmente la academia encargada del desarrollo académico de la carrera de Ingeniería Industrial."
     },
     {
       titulo: "Construcción de Laboratorios",
       año: "1980",
-      descripcion: "Se inaugura el Laboratorio de Ingeniería de Métodos, fortaleciendo la práctica profesional en la carrera."
+      descripcion:
+        "Se inaugura el Laboratorio de Ingeniería de Métodos, fortaleciendo la práctica profesional en la carrera."
     },
     {
       titulo: "Reconocimiento Nacional ANFEI",
       año: "2024",
-      descripcion: "El ITA es nombrado Mejor Escuela de Ingeniería en México por la ANFEI, con programas de Ingeniería Industrial acreditados nacional e internacionalmente."
+      descripcion:
+        "El ITA es nombrado Mejor Escuela de Ingeniería en México por la ANFEI, con programas de Ingeniería Industrial acreditados nacional e internacionalmente."
     }
   ];
 
@@ -64,56 +67,58 @@ export const Historia = () => {
   );
 };
 
-/*---------------
- LISTA EVENTOS
-----------------*/ 
-import { useNavigate } from 'react-router-dom';
-
+/*---------------  LISTA EVENTOS ----------------*/
 export const ListaEventos = () => {
-  const navigate = useNavigate(); // ✅ hook dentro del cuerpo de la función
+  const navigate = useNavigate();
 
+  return (
+    <section id="programas" className="programas-section">
+      <p className="programas-subtitulo">NUESTROS PROGRAMAS</p>
+      <h2 className="programas-titulo">Llevando tu educación al siguiente nivel</h2>
 
-  return(
+      <div className="programas-grid">
+        <div className="programa-item">
+          <div className="icono icono-circulos"></div>
+          <h3>Programas Académicos</h3>
+          <p>
+            Explora nuevas ideas, comparte conocimientos y aprende de los
+            mejores. Únete a nuestras conferencias, talleres y encuentros con
+            expertos que transformarán tu forma de pensar.
+          </p>
+        </div>
+        <div className="programa-item">
+          <div className="icono icono-paloma"></div>
+          <h3>Orientación Profesional</h3>
+          <p>
+            Descubre tu camino con charlas inspiradoras, experiencias reales y
+            asesoría personalizada que te impulsarán hacia un futuro brillante.
+          </p>
+        </div>
+        <div className="programa-item">
+          <div className="icono icono-cuadros"></div>
+          <h3>Desarrollo Social</h3>
+          <p>
+            Conecta, compite y crece. Participa en torneos, eventos recreativos
+            y actividades que unen el aprendizaje con la diversión y el
+            compañerismo.
+          </p>
+        </div>
+      </div>
 
-  <section id="programas" className="programas-section">
-    <p className="programas-subtitulo">NUESTROS PROGRAMAS</p>
-    <h2 className="programas-titulo">Llevando tu educación al siguiente nivel</h2>
-
-  <div className="programas-grid">
-  <div className="programa-item">
-    <div className="icono icono-circulos"></div>
-    <h3>Programas Académicos</h3>
-    <p>Explora nuevas ideas, comparte conocimientos y aprende de los mejores. Únete a nuestras conferencias, talleres y encuentros con expertos que transformarán tu forma de pensar.</p>
-  </div>
-  <div className="programa-item">
-    <div className="icono icono-paloma"></div>
-    <h3>Orientación Profesional</h3>
-    <p>Descubre tu camino con charlas inspiradoras, experiencias reales y asesoría personalizada que te impulsarán hacia un futuro brillante.</p>
-  </div>
-  <div className="programa-item">
-    <div className="icono icono-cuadros"></div>
-    <h3>Desarrollo Social</h3>
-    <p>Conecta, compite y crece. Participa en torneos, eventos recreativos y actividades que unen el aprendizaje con la diversión y el compañerismo.</p>
-  </div>
-</div>
-
-
-   
       {/* Botón con navigate */}
       <div className="text-center mt-6">
         <button
           onClick={() => navigate('/talleres-industrial')}
-           className="ver-programas-button"> 
-           Ver Talleres 
+          className="ver-programas-button"
+        >
+          Ver Talleres
         </button>
       </div>
     </section>
   );
 };
 
-/*---------------
- PONENTES
-----------------*/ 
+/*---------------  PONENTES ----------------*/
 export const Ponentes = () => {
   const [ponenteSeleccionado, setPonenteSeleccionado] = useState(null);
 
@@ -121,9 +126,11 @@ export const Ponentes = () => {
     {
       nombre: "LUIS SOCONINI",
       imagen: "./ponentes/ponente1.jpg",
-      titulo: "Metodología Lean Six Sigma e IA 4.0: innovación y Certificación para la competitividad Global",
+      titulo:
+        "Metodología Lean Six Sigma e IA 4.0: innovación y Certificación para la competitividad Global",
       carrera: "Director General de Lean Six Sigma Institute",
-      descripcion: "Explora cómo se aplican principios de ingeniería industrial en sectores clave.",
+      descripcion:
+        "Explora cómo se aplican principios de ingeniería industrial en sectores clave.",
       fecha: "Miércoles 15 de octubre, 13:00 hrs."
     },
     {
@@ -131,23 +138,29 @@ export const Ponentes = () => {
       imagen: "./ponentes/ponente2.jpg",
       titulo: "Innovación y Valor en la Logística",
       carrera: "Gerente Regional de Ing. Industrial NPW Nissan North America",
-      descripcion: "Una introducción práctica a la inteligencia artificial en la ingeniería industrial.",
+      descripcion:
+        "Una introducción práctica a la inteligencia artificial en la ingeniería industrial.",
       fecha: "Miércoles 15 de octubre, 16:00 hrs"
     },
     {
       nombre: "ALEJANDRO LARA",
       imagen: "./ponentes/ponente3.jpg",
-      titulo: "Innovación, Liderazgo y Disciplina: Claves de un Camino Profesional",
-      carrera: "Director de control de producción y Cadena de Suministro - COMPAS",
-      descripcion: "Análisis de estudios de caso donde convergen distintas disciplinas en la industria.",
+      titulo:
+        "Innovación, Liderazgo y Disciplina: Claves de un Camino Profesional",
+      carrera:
+        "Director de control de producción y Cadena de Suministro - COMPAS",
+      descripcion:
+        "Análisis de estudios de caso donde convergen distintas disciplinas en la industria.",
       fecha: "Jueves 16 de octubre, 16:00 hrs"
     },
     {
       nombre: "RODRIGO MAGALLANES DEL RIO",
       imagen: "./ponentes/ponente3.jpg",
-      titulo: "Del caos al control: estrategias para transformar la crisis en éxito",
+      titulo:
+        "Del caos al control: estrategias para transformar la crisis en éxito",
       carrera: "Head of Operations (Continental)",
-      descripcion: "Otra perspectiva sobre integración de conocimientos en ingeniería.",
+      descripcion:
+        "Otra perspectiva sobre integración de conocimientos en ingeniería.",
       fecha: "Viernes 17 de octubre, 13:00 hrs"
     },
     {
@@ -155,7 +168,8 @@ export const Ponentes = () => {
       imagen: "./ponentes/ponente3.jpg",
       titulo: "Kikubari Kaizen: el detalle invisible que transforma la manufactura",
       carrera: "Consultor CX 6 sigma y NPS",
-      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      descripcion:
+        "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
       fecha: "Jueves 16 de octubre, 13:00 hrs"
     },
     {
@@ -163,7 +177,8 @@ export const Ponentes = () => {
       imagen: "./ponentes/ponente3.jpg",
       titulo: "Mujeres Industriales: Legado y Futuro",
       carrera: "",
-      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      descripcion:
+        "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
       fecha: "Martes 14 de octubre, 19:00 hrs"
     },
     {
@@ -171,7 +186,8 @@ export const Ponentes = () => {
       imagen: "./ponentes/ponente3.jpg",
       titulo: "Egresados en la Modalidad a Distancia",
       carrera: "Consultor CX 6 sigma y NPS",
-      descripcion: "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      descripcion:
+        "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
       fecha: "Lunes 13 al Viernes 17 de octubre, 12:00 hrs"
     }
   ];
@@ -201,11 +217,15 @@ export const Ponentes = () => {
       {ponenteSeleccionado && (
         <div className="modal" onClick={cerrarModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal}>&times;</span>
+            <span className="close" onClick={cerrarModal}>
+              &times;
+            </span>
             <p className="modal-date">{ponenteSeleccionado.fecha}</p>
             <h2 id="modal-title">{ponenteSeleccionado.titulo}</h2>
             <p id="modal-description">{ponenteSeleccionado.descripcion}</p>
-            <p><strong>Ponente:</strong> {ponenteSeleccionado.nombre}</p>
+            <p>
+              <strong>Ponente:</strong> {ponenteSeleccionado.nombre}
+            </p>
             <p>{ponenteSeleccionado.carrera}</p>
           </div>
         </div>
@@ -213,11 +233,8 @@ export const Ponentes = () => {
     </section>
   );
 };
-/*---------------
-  REGISTRO COMPLETO
-----------------*/
 
-
+/*---------------   REGISTRO COMPLETO ----------------*/
 export const Registro = () => {
   const [modalRegistroAbierto, setModalRegistroAbierto] = useState(false);
   const [modalClavesAbierto, setModalClavesAbierto] = useState(false);
@@ -234,7 +251,9 @@ export const Registro = () => {
     const encoder = new TextEncoder();
     const data = encoder.encode(texto);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(hashBuffer))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
   };
 
   const handleRegistro = async (e) => {
@@ -249,7 +268,7 @@ export const Registro = () => {
       nacionalidad: form.nacionalidad.value,
       codigoControl: form.codigoControl.value,
       correo: form.correo.value,
-      telefono: form.telefono.value
+      telefono: form.telefono.value,
     };
 
     const curpPrimeros8 = datos.curp.slice(0, 8);
@@ -263,7 +282,7 @@ export const Registro = () => {
       const response = await fetch(`${apiUrl}/api/enviar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...datos, password: passwordHasheado })
+        body: JSON.stringify({ ...datos, password: passwordHasheado }),
       });
 
       const data = await response.json();
@@ -273,6 +292,7 @@ export const Registro = () => {
       abrirClaves();
     } catch (error) {
       console.error("Error al enviar los datos:", error);
+      setMensajeBackend("Error al conectar con el servidor.");
     }
   };
 
@@ -280,8 +300,7 @@ export const Registro = () => {
     <section id="registro" className="section-registro">
       <div className="registro-container">
         <p>
-          ¿Eres egresado del <strong>Instituto Tecnológico de Aguascalientes</strong> 
-          en la carrera de Industrial? Haz clic en el botón de abajo:
+          ¿Eres egresado del <strong>Instituto Tecnológico de Aguascalientes</strong> en la carrera de Industrial? Haz clic en el botón de abajo:
         </p>
         <button className="registro-btn" onClick={abrirRegistro}>
           ¡Inscríbete aquí!
@@ -325,11 +344,7 @@ export const Registro = () => {
   );
 };
 
-
-
-/*---------------
- CONTACTO
-----------------*/ 
+/*---------------  CONTACTO ----------------*/
 export const InfoContacto = ({ titulo, subtitulo, direccion, email, telefono, dataAos }) => (
   <div className="info-contacto" data-aos={dataAos}>
     <h5>{titulo}</h5>
@@ -390,9 +405,7 @@ export const Contacto = ({ titulo, subtitulo, direccion, email, telefono, dataAo
   </>
 );
 
-/*---------------
- LEGADO DESTACADO
-----------------*/
+/*---------------  LEGADO DESTACADO ----------------*/
 export const Legado = () => (
   <section id="legado" className="legado-container">
     <h2 className="legado-titulo">50 Años de Legado Académico</h2>
@@ -417,11 +430,11 @@ export const Legado = () => (
   </section>
 );
 
-/*---------------
- CONTADOR REGRESIVO
-----------------*/
+
+
+/*---------------  CONTADOR REGRESIVO ----------------*/
 export const ContadorRegresivo = ({ fechaObjetivo }) => {
-  const calcularTiempoRestante = () => {
+  const calcularTiempoRestante = useCallback(() => {
     const ahora = new Date().getTime();
     const destino = new Date(fechaObjetivo).getTime();
     const diferencia = destino - ahora;
@@ -432,39 +445,26 @@ export const ContadorRegresivo = ({ fechaObjetivo }) => {
     const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
 
     return { dias, horas, minutos, segundos };
-  };
+  }, [fechaObjetivo]); // 👈 depende solo de la fecha
 
   const [tiempoRestante, setTiempoRestante] = useState(calcularTiempoRestante());
 
- useEffect(() => {
-  const calcularTiempoRestante = () => {
-    const ahora = new Date().getTime();
-    const destino = new Date(fechaObjetivo).getTime();
-    const diferencia = destino - ahora;
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setTiempoRestante(calcularTiempoRestante());
+    }, 1000);
 
-    const segundos = Math.floor((diferencia / 1000) % 60);
-    const minutos = Math.floor((diferencia / 1000 / 60) % 60);
-    const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-
-    return { dias, horas, minutos, segundos };
-  };
-
-  const intervalo = setInterval(() => {
-    setTiempoRestante(calcularTiempoRestante());
-  }, 1000);
-
-  return () => clearInterval(intervalo);
-}, [fechaObjetivo]);
+    return () => clearInterval(intervalo);
+  }, [calcularTiempoRestante]); // 👈 ya no marca error
 
   return (
     <section className="contador-contenedor">
       <h2 className="contador-titulo">Cuenta regresiva al evento principal</h2>
       <div className="contador-tiempo-contenedor">
-        {['dias', 'horas', 'minutos', 'segundos'].map((unidad) => (
+        {["dias", "horas", "minutos", "segundos"].map((unidad) => (
           <div key={unidad} className="contador-unidad-contenedor">
             <div className="contador-numero">
-              {tiempoRestante[unidad].toString().padStart(2, '0')}
+              {tiempoRestante[unidad].toString().padStart(2, "0")}
             </div>
             <div className="contador-etiqueta">{unidad.toUpperCase()}</div>
           </div>

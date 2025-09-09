@@ -1,10 +1,9 @@
-// App.jsx
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import NuevaPagina from './talleres'; // nueva página
 
+import NuevaPagina from './talleres';
 import {
   Inicio,
   Historia,
@@ -19,46 +18,27 @@ import {
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Inicializa AOS
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-    });
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
   }, []);
 
-  // Refresca AOS cuando cambia el layout (ej. menú)
-  useEffect(() => {
-    AOS.refresh();
-  }, [menuOpen]);
+  useEffect(() => { AOS.refresh(); }, [menuOpen]);
 
   const handleLinkClick = () => setMenuOpen(false);
 
   return (
     <Router>
       <div className="app-root">
-        <nav className="navbar" role="navigation" aria-label="Main navigation">
+        <nav className="navbar">
           <div className="logo">
             <img
               src="/logos/LOGOTIPO ANIVERSARIO COMPLETO.png"
               alt="Logotipo 50 aniversario"
-              style={{
-                height: '40px',
-                marginRight: '8px',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-                padding: '4px'
-              }}
+              style={{ height: '40px', marginRight: '8px', backgroundColor: '#fff', borderRadius: '8px', padding: '4px' }}
             />
           </div>
 
-          <button
-            className="hamburger"
-            onClick={() => setMenuOpen(prev => !prev)}
-            aria-expanded={menuOpen}
-            aria-label="Toggle menu"
-          >
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             ☰
           </button>
 
@@ -81,37 +61,26 @@ const App = () => {
         </div>
 
         <Routes>
-          {/* Página principal */}
-          <Route
-            path="/"
-            element={
-              <main>
-                <Inicio 
-                  titulo="Celebrando 50 años de excelencia académica" 
-                  descripcion="Bienvenido a la página de 50 aniversario de Instituto Tecnológico de Aguascalientes." 
-                  dataAos="fade-up" 
-                /> 
-                <br/><br/> 
-                <Historia dataAos="fade-up" /> 
-                <ContadorRegresivo fechaObjetivo="2025-10-13T00:00:00" dataAos="zoom-in" /> 
-                <Legado dataAos="fade-up" /> 
-                <ListaEventos dataAos="fade-up" />
-                <Ponentes dataAos="fade-up" /> 
-                <Registro dataAos="fade-up" />
-                <Contacto 
-                  titulo="CONTACTANOS" 
-                  subtitulo="¡Platicanos de tus dudas, te escucharemos!" 
-                  direccion="Av. Adolfo López Mateos Ote. 1801, 20256 Aguascalientes, Aguascalientes · 05 km" 
-                  email="ita@aguascalientes.tecnm.mx" 
-                  telefono="Tel: +449 910 5002" 
-                  mensajeGracias="¡Mensaje recibido, te contactaremos !" 
-                  dataAos="fade-up" 
-                />
-              </main>
-            }
-          />
-
-          {/* Nueva página */}
+          <Route path="/" element={
+            <main>
+              <Inicio titulo="Celebrando 50 años de excelencia académica" descripcion="Bienvenido a la página de 50 aniversario de Instituto Tecnológico de Aguascalientes." dataAos="fade-up" />
+              <Historia dataAos="fade-up" />
+              <ContadorRegresivo fechaObjetivo="2025-10-13T00:00:00" dataAos="zoom-in" />
+              <Legado dataAos="fade-up" />
+              <ListaEventos dataAos="fade-up" />
+              <Ponentes dataAos="fade-up" />
+              <Registro dataAos="fade-up" />
+              <Contacto
+                titulo="CONTACTANOS"
+                subtitulo="¡Platicanos de tus dudas, te escucharemos!"
+                direccion="Av. Adolfo López Mateos Ote. 1801, 20256 Aguascalientes, Aguascalientes · 05 km"
+                email="ita@aguascalientes.tecnm.mx"
+                telefono="Tel: +449 910 5002"
+                mensajeGracias="¡Mensaje recibido, te contactaremos !"
+                dataAos="fade-up"
+              />
+            </main>
+          } />
           <Route path="/talleres-industrial" element={<NuevaPagina />} />
         </Routes>
       </div>
