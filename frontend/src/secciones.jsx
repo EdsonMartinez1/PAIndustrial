@@ -214,38 +214,27 @@ export const Ponentes = () => {
   );
 };
 /*---------------
-  REGISTRO
+  REGISTRO COMPLETO
 ----------------*/
+
+
 export const Registro = () => {
-  const [modal1Abierto, setModal1Abierto] = useState(false);
-  const [modal3Abierto, setModal3Abierto] = useState(false);
-  const [modal2Abierto, setModal2Abierto] = useState(false);
+  const [modalRegistroAbierto, setModalRegistroAbierto] = useState(false);
+  const [modalClavesAbierto, setModalClavesAbierto] = useState(false);
   const [usuario, setUsuario] = useState({});
   const [clavesAcceso, setClavesAcceso] = useState({ usuario: "", password: "" });
+  const [mensajeBackend, setMensajeBackend] = useState("");
 
-  const abrirModal1 = () => setModal1Abierto(true);
-  const cerrarModal1 = () => setModal1Abierto(false);
+  const abrirRegistro = () => setModalRegistroAbierto(true);
+  const cerrarRegistro = () => setModalRegistroAbierto(false);
+  const abrirClaves = () => setModalClavesAbierto(true);
+  const cerrarClaves = () => setModalClavesAbierto(false);
 
-  const abrirModal2 = () => {
-    setModal1Abierto(false); // Cierra el modal 1 si está abierto
-    setModal2Abierto(true);
-  };
-  const cerrarModal2 = () => setModal2Abierto(false);
-
-  const abrirModal3 = () => {
-    setModal1Abierto(false); // Cierra el modal 1 si está abierto
-    setModal3Abierto(true);
-  };
-  const cerrarModal3 = () => setModal3Abierto(false);
-
-  // Función para hashear la contraseña
   const hashPassword = async (texto) => {
     const encoder = new TextEncoder();
     const data = encoder.encode(texto);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-    return hashHex;
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
   };
 
   const handleRegistro = async (e) => {
@@ -262,129 +251,80 @@ export const Registro = () => {
       correo: form.correo.value,
       telefono: form.telefono.value
     };
-    setUsuario(datos);
 
-    // Generar clave: primeros 8 digitos del CURP hasheados
     const curpPrimeros8 = datos.curp.slice(0, 8);
     const passwordHasheado = await hashPassword(curpPrimeros8);
 
+    setUsuario(datos);
     setClavesAcceso({ usuario: datos.correo, password: passwordHasheado });
-    cerrarModal1();
-    abrirModal3();
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/api/enviar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...datos, password: passwordHasheado })
+      });
+
+      const data = await response.json();
+      setMensajeBackend(data.mensaje);
+
+      cerrarRegistro();
+      abrirClaves();
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+    }
   };
+
   return (
     <section id="registro" className="section-registro">
       <div className="registro-container">
-        <p className="registro-text">
-          ¿Eres egresado del <strong>Instituto Tecnológico de Aguascalientes </strong> 
-          en la carrera de Industrial y te gustaría participar en este evento? 
-          Haz clic en el botón de abajo:
+        <p>
+          ¿Eres egresado del <strong>Instituto Tecnológico de Aguascalientes</strong> 
+          en la carrera de Industrial? Haz clic en el botón de abajo:
         </p>
-        <button className="registro-btn" onClick={abrirModal1}>
+        <button className="registro-btn" onClick={abrirRegistro}>
           ¡Inscríbete aquí!
         </button>
       </div>
 
-      {/* Registro */}
-      {modal1Abierto && (
-        <div className="modal-registro" onClick={cerrarModal1}>
-          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal1}>&times;</span>
+      {modalRegistroAbierto && (
+        <div className="modal" onClick={cerrarRegistro}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarRegistro}>&times;</span>
             <h2>Registro de Egresados</h2>
-            <p className="aviso-privacidad">
-              Este registro es para uso exclusivo de la generación de la papeleta de pago.
-              En caso de ser estudiante del ITA, toda la información será manejada en tu
-              departamento correspondiente.
-            </p>
-
             <form className="form-registro" onSubmit={handleRegistro}>
-              <div className="form-group">
-                <label>Nombre</label>
-                <input type="text" name="nombre" placeholder="Tu nombre" required />
-              </div>
-              <div className="form-group">
-                <label>Apellido Paterno</label>
-                <input type="text" name="apellidoPaterno" placeholder="Apellido paterno" required />
-              </div>
-              <div className="form-group">
-                <label>Apellido Materno</label>
-                <input type="text" name="apellidoMaterno" placeholder="Apellido materno" required />
-              </div>
-              <div className="form-group">
-                <label>CURP</label>
-                <input type="text" name="curp" placeholder="CURP" required />
-              </div>
-              <div className="form-group">
-                <label>Fecha de Nacimiento</label>
-                <input type="date" name="fechaNacimiento" required />
-              </div>
-              <div className="form-group">
-                <label>Nacionalidad</label>
-                <input type="text" name="nacionalidad" placeholder="Nacionalidad" required />
-              </div>
-              <div className="form-group">
-                <label>Código de Control</label>
-                <input type="text" name="codigoControl" placeholder="Código de control" required />
-              </div>
-              <div className="form-group">
-                <label>Correo</label>
-                <input type="email" name="correo" placeholder="Correo electrónico" required />
-              </div>
-              <div className="form-group">
-                <label>Teléfono</label>
-                <input type="tel" name="telefono" placeholder="Teléfono" required />
-              </div>
-
-              <div style={{ marginTop: '15px' }}>
-                <button type="submit" onClick={abrirModal3}>Iniciar registro</button>
-                <p>si ya cuentas con un cuenta haz clik aqui, <a style={{cursor: "pointer"}} onClick={abrirModal2}>Iniciar Sesión</a></p>
-              </div>
+              <input type="text" name="nombre" placeholder="Nombre" required />
+              <input type="text" name="apellidoPaterno" placeholder="Apellido Paterno" required />
+              <input type="text" name="apellidoMaterno" placeholder="Apellido Materno" required />
+              <input type="text" name="curp" placeholder="CURP" required />
+              <input type="date" name="fechaNacimiento" required />
+              <input type="text" name="nacionalidad" placeholder="Nacionalidad" required />
+              <input type="text" name="codigoControl" placeholder="Código de Control" required />
+              <input type="email" name="correo" placeholder="Correo" required />
+              <input type="tel" name="telefono" placeholder="Teléfono" required />
+              <button type="submit">Registrar</button>
             </form>
           </div>
         </div>
       )}
 
-      {/* Inicio Sesion */}
-      {modal2Abierto && (
-        <div className="modal-registro2" onClick={cerrarModal2}>
-          <div className="modal-content-registro2" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal2}>&times;</span>
-            <h2>Inicio de Sesión</h2>
-            <p>Ingresa con tu correo y contraseña para acceder y revisar el estado de tu pago.</p>
-
-            <form className="form-login">
-              <div className="form-group">
-                <label>Correo</label>
-                <input type="email" placeholder="Correo electrónico" required />
-              </div>
-              <div className="form-group">
-                <label>Contraseña</label>
-                <input type="password" placeholder="Contraseña" required />
-              </div>
-              <button type="submit">Revisar Validacion</button>
-            </form>
-          </div>
-        </div>
-
-      )}
-
-      {/* Modal Claves de acceso */}
-      {modal3Abierto && (
-         <div className="modal-registro3" onClick={cerrarModal3}>
-          <div className="modal-content-registro3" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal3}>&times;</span>
+      {modalClavesAbierto && (
+        <div className="modal" onClick={cerrarClaves}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarClaves}>&times;</span>
             <h2>Claves de Acceso</h2>
             <p>¡Felicidades {usuario.nombre}!</p>
+            <p>{mensajeBackend}</p>
             <p><strong>Usuario:</strong> {clavesAcceso.usuario}</p>
             <p><strong>Contraseña:</strong> {clavesAcceso.password}</p>
-            <p><strong> ¡¡Guarda esta información para iniciar sesión en el sistema!!</strong></p>
           </div>
         </div>
       )}
     </section>
   );
-  
 };
+
 
 
 /*---------------
