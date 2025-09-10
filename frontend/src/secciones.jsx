@@ -135,7 +135,7 @@ export const Ponentes = () => {
     },
     {
       nombre: "ABRAHAM HERNÁNDEZ",
-      imagen: "./ponentes/ponente2.jpg",
+      imagen: "./ponentes/AbraHern.jpg",
       titulo: "Innovación y Valor en la Logística",
       carrera: "Gerente Regional de Ing. Industrial NPW Nissan North America",
       descripcion:
@@ -144,7 +144,7 @@ export const Ponentes = () => {
     },
     {
       nombre: "ALEJANDRO LARA",
-      imagen: "./ponentes/ponente3.jpg",
+      imagen: "./ponentes/AleLara.png",
       titulo:
         "Innovación, Liderazgo y Disciplina: Claves de un Camino Profesional",
       carrera:
@@ -155,7 +155,7 @@ export const Ponentes = () => {
     },
     {
       nombre: "RODRIGO MAGALLANES DEL RIO",
-      imagen: "./ponentes/ponente3.jpg",
+      imagen: "./ponentes/RodMaga.png",
       titulo:
         "Del caos al control: estrategias para transformar la crisis en éxito",
       carrera: "Head of Operations (Continental)",
@@ -165,7 +165,7 @@ export const Ponentes = () => {
     },
     {
       nombre: "ROMEO MUÑOZ",
-      imagen: "./ponentes/ponente3.jpg",
+      imagen: "./ponentes/RomMuñozpng.png",
       titulo: "Kikubari Kaizen: el detalle invisible que transforma la manufactura",
       carrera: "Consultor CX 6 sigma y NPS",
       descripcion:
