@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ComponentesCSS/talleres.css";
 import "./ComponentesCSS/boton_ver_talleres.css";
 
+
 const talleres = [
   {
     id: 1,
@@ -357,6 +358,30 @@ const Talleres = () => {
           className="calendario-img"
         />
       </div>
+      {/* Apartado de kit */}
+<div className="calendario-container">
+  <h2 className="dia-title">Kit Industrial - $650</h2>
+  <p>Esto puedes conseguir asistiendo al 50 ANIVERSARIO DE LA CARRERA DE INDUSTRIAL</p>
+
+  <div className="kit-container">
+    <img
+      src="./logos/kit1.png"
+      alt="Kit parte 1"
+      className="kit-img"
+    />
+    <img
+      src="./logos/kit2.png"
+      alt="Kit parte 2"
+      className="kit-img"
+    />
+    <img
+      src="./logos/kit3.png"
+      alt="Kit parte 3"
+      className="kit-img"
+    />
+  </div>
+</div>
+
 
       {/* Modal de Taller */}
       {tallerSeleccionado && (
@@ -389,7 +414,7 @@ const Talleres = () => {
       )}
 
       {/* Botón para regresar */}
-      <button onClick={() => navigate(-1)} className="nueva-pagina-button">
+      <button onClick={() => navigate("/")} className="nueva-pagina-button">
         ← Regresar
       </button>
     </div>

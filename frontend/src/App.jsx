@@ -43,7 +43,7 @@ const App = () => {
           </button>
 
           <ul className={`nav-links ${menuOpen ? 'show' : ''}`}>
-            <li><a href="#inicio" onClick={handleLinkClick}>Inicio</a></li>
+            <li><a  href="#inicio" onClick={handleLinkClick}>Inicio</a></li>
             <li><a href="#historia" onClick={handleLinkClick}>Historia</a></li>
             <li><a href="#legado" onClick={handleLinkClick}>Legado</a></li>
             <li><a href="#programas" onClick={handleLinkClick}>Lista de Eventos</a></li>
