@@ -757,6 +757,51 @@ html, body, #root {
   z-index: 1000;
 }
 
+.api-container {
+  margin-top: 20px;
+}
+
+.estado-pago {
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+/* Colores por estado */
+.estado-pago.no-validado {
+  color: #fff;
+  background-color: #e74c3c; /* rojo */
+}
+
+.estado-pago.validado {
+  color: #fff;
+  background-color: #27ae60; /* verde */
+}
+
+.estado-pago.vencido {
+  color: #000;
+  background-color: #f1c40f; /* amarillo */
+}
+
+/* Formulario cuando está validado */
+.form-validado {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-validado label {
+  font-weight: bold;
+}
+
+.form-validado input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
 .modal-content-registro {
   background: #fff;
   padding: 40px 30px;
@@ -767,6 +812,76 @@ html, body, #root {
   position: relative;
   overflow-y: auto;
   max-height: 90vh;
+}
+.notificacion-error {
+  background-color: #ffdddd;
+  border: 1px solid #ff5c5c;
+  padding: 10px;
+  border-radius: 5px;
+  color: #a70000;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  animation: aparecer 0.3s ease-in-out;
+}
+.modal-title {
+  text-align: center;
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.alerta-importante {
+  background-color: #ffe8e8;
+  border-left: 4px solid #ff4d4d;
+  color: #b00000;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.usuario-info p,
+.pago-info .detalle p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 0.95em;
+}
+
+.nota {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 5px;
+}
+
+.pago-info h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #222;
+  font-weight: 600;
+}
+
+.resaltado {
+  background-color: #fff3cd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.pago-info a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.pago-info a:hover {
+  text-decoration: underline;
+}
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .modal-content-registro .close {
@@ -808,13 +923,13 @@ html, body, #root {
   flex-direction: column;
 }
 
-.form-group label {
+.form-group label,.form-group select {
   margin-bottom: 5px;
   font-weight: 600;
   color: #333;
 }
 
-.form-group input {
+.form-group input,.form-group select {
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -822,7 +937,7 @@ html, body, #root {
   transition: all 0.3s ease;
 }
 
-.form-group input:focus {
+.form-group input:focus,.form-group select:focus {
   outline: none;
   border-color: #1e90ff;
   box-shadow: 0 0 8px rgba(30,144,255,0.3);
@@ -902,7 +1017,7 @@ html, body, #root {
   color: #333;
 }
 
-.form-login input {
+.form-login input,.form-group option{
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -965,6 +1080,40 @@ html, body, #root {
 .registro-text strong {
   color: #FFD700;
 }
+/* 🎨 Estilos generales para selects */
+select {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #333;
+  color: #fff;
+
+  /* 🔑 reset estilos por defecto */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* espacio para la flechita */
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1.2rem;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 6px rgba(26, 115, 232, 0.3);
+}
+
+option {
+  background: #333;
+  color: #e2dcdc;
+  padding: 10px;
+}
 
 .registro-btn {
   background-color: #ff6f61;
@@ -972,6 +1121,7 @@ html, body, #root {
   font-size: 1.2rem;
   padding: 12px 30px;
   border: none;
+  margin: 0 15px;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
