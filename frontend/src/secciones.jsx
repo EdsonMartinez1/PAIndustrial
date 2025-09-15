@@ -236,107 +236,780 @@ export const Ponentes = () => {
 
 /*---------------   REGISTRO COMPLETO ----------------*/
 export const Registro = () => {
-  const [modalRegistroAbierto, setModalRegistroAbierto] = useState(false);
-  const [modalClavesAbierto, setModalClavesAbierto] = useState(false);
+  const [modal1Abierto, setModal1Abierto] = useState(false);
+  const [modal3Abierto, setModal3Abierto] = useState(false);
+  const [modal2Abierto, setModal2Abierto] = useState(false);
+  const [modal4Abierto, setModal4Abierto] = useState(false);
+  const [modal5Abierto, setModal5Abierto] = useState(false);
+  const [modal6Abierto, setModal6Abierto] = useState(false);
+  const [modal7Abierto, setModal7Abierto] = useState(false);
+  const abrirModal1 = () => setModal1Abierto(true);
+  const cerrarModal1 = () => setModal1Abierto(false);
+  const abrirModal6 = () => setModal6Abierto(true);
+  const cerrarModal6 = () => setModal6Abierto(false);
+
+  const abrirModal2 = () => {
+    setModal1Abierto(false); // Cierra el modal 1 si está abierto
+    setModal2Abierto(true);
+  };
+  const cerrarModal2 = () => setModal2Abierto(false);
+
+  const abrirModal3 = () => {
+    setModal1Abierto(false); // Cierra el modal 1 si está abierto
+    setModal3Abierto(true);
+  };
+  const cerrarModal3 = () => setModal3Abierto(false);
+    const abrirModal4 = () => {
+    setModal2Abierto(false); // Cierra el modal 1 si está abierto
+    setModal4Abierto(true);
+  };
+  const cerrarModal4 = () => setModal4Abierto(false);
+  const abrirModal5 = () => {
+    setModal4Abierto(false); // Cierra el modal 1 si está abierto
+    setModal5Abierto(true);
+  };
+  const cerrarModal5 = () => setModal5Abierto(false);
+    const abrirModal7 = () => {
+    setModal6Abierto(false); // Cierra el modal 1 si está abierto
+    setModal7Abierto(true);
+  };
+  const cerrarModal7 = () => setModal7Abierto(false);
+
+
   const [usuario, setUsuario] = useState({});
   const [clavesAcceso, setClavesAcceso] = useState({ usuario: "", password: "" });
   const [mensajeBackend, setMensajeBackend] = useState("");
+  const [apiExterna, setApiExterna] = useState(null);
 
-  const abrirRegistro = () => setModalRegistroAbierto(true);
-  const cerrarRegistro = () => setModalRegistroAbierto(false);
-  const abrirClaves = () => setModalClavesAbierto(true);
-  const cerrarClaves = () => setModalClavesAbierto(false);
+  // Valida un objeto de datos con reglas
+  const validarCampos = (datos, reglas) => {
+    for (const campo in reglas) {
+      const valor = datos[campo]?.trim();
 
-  const hashPassword = async (texto) => {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(texto);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hashBuffer))
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
+      // Campo requerido
+      if (reglas[campo].required && !valor) {
+        return `El campo "${campo}" es obligatorio.`;
+      }
+
+      // Email válido
+      if (reglas[campo].type === "email" && valor) {
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regexEmail.test(valor)) {
+          return `El campo "${campo}" debe ser un correo válido.`;
+        }
+      }
+
+      // Solo números
+      if (reglas[campo].type === "number" && valor) {
+        if (!/^\d+$/.test(valor)) {
+          return `El campo "${campo}" debe contener solo números.`;
+        }
+      }
+
+      // Longitud mínima
+      if (reglas[campo].minLength && valor.length < reglas[campo].minLength) {
+        return `El campo "${campo}" debe tener al menos ${reglas[campo].minLength} caracteres.`;
+      }
+
+      // Longitud máxima
+      if (reglas[campo].maxLength && valor.length > reglas[campo].maxLength) {
+        return `El campo "${campo}" no debe exceder ${reglas[campo].maxLength} caracteres.`;
+      }
+    }
+    return null; // Sin errores
+  };
+  // Login de personal Externo
+  const handlelogin = async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const correo = form.correo.value;
+  const password = form.password.value;
+  const numeroControl = form.numeroControl.value;
+
+  try {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    // Enviamos los datos como query params
+    const login = await fetch(
+      `${apiUrl}/api/login?correo=${encodeURIComponent(correo)}&password=${encodeURIComponent(password)}&numeroControl=${encodeURIComponent(numeroControl)}`
+    );
+
+    const respuesta = await login.json();
+    if (respuesta.mensaje === "Credenciales inválidas" || respuesta.mensaje === "Error en login, porfavor vuelve a intentar" || respuesta.mensaje === "Correo, contraseña y número de control son obligatorios" ) {
+      setMensajeBackend(respuesta.mensaje);
+      return;
+    }
+    
+    setMensajeBackend(respuesta.mensaje);
+    setApiExterna(respuesta);
+
+
+    cerrarModal2();
+    abrirModal4();
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+    setMensajeBackend("Error al conectar con el servidor.");
+  }
+  };
+  // Registro al evento para alumnos
+const handleForumularioAlumno = async (e) => {
+    e.preventDefault();
+  const form = e.target;
+
+  const datos = {
+    nombre: form.nombre.value,
+    apellidoPaterno: form.apellidoPaterno.value,
+    apellidoMaterno: form.apellidoMaterno.value,
+    numeroControl: form.numeroControl.value,
+    semestre: form.semestre.value,
+    tallerElegir: form.tallerElegir.value,
+    nss: form.nss.value,
+    correo: form.correo.value,
+    nombreEme: form.nombreEme.value,
+    apellidoPaternoEme: form.apellidoPaternoEme.value,
+    apellidoMaternoEme: form.apellidoMaternoEme.value,
+    telefonoEme: form.telefonoEme.value,
+    tallaChaleco: form.tallaChaleco.value,
+    tallaPlayera: form.tallaPlayera.value,
   };
 
+  // Validaciones
+  const error = validarCampos(datos, {
+    nombre: { required: true, minLength: 3 },
+    apellidoPaterno: { required: true },
+    apellidoMaterno: { required: true },
+    numeroControl: { required: true, type: "number", minLength: 8 },
+    semestre: { required: true, type: "number" },
+    tallerElegir: { required: true },
+    nss: { required: true, type: "number", minLength: 10 },
+    correo: { required: true, type: "email" },
+    nombreEme: { required: true },
+    apellidoPaternoEme: { required: true },
+    apellidoMaternoEme: { required: true },
+    telefonoEme: { required: true, type: "number", minLength: 10, maxLength: 15 },
+    tallaChaleco: { required: true },
+    tallaPlayera: { required: true },
+  });
+
+  if (error) {
+    setMensajeBackend(error);
+    return;
+  }
+
+  try {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const response = await fetch(`${apiUrl}/api/alumno`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos),
+    });
+
+    const data = await response.json();
+
+    if (data.mensaje === "Error al registrar informacion, favor de intentarlo de nuevo.") {
+      setMensajeBackend(data.mensaje);
+      return;
+    }setMensajeBackend(data.mensaje || "Registro de alumno enviado correctamente");
+    cerrarModal7();
+    abrirModal5();
+  } catch (error) {
+    console.error("Error al enviar datos de alumno:", error);
+    setMensajeBackend("Error al conectar con el servidor PUTO.");
+  }
+};
+  // Registro al evento para externos
+const handleForumularioExterno = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    
+      const datos = {
+    nombre: form.nombre.value,
+    apellidoPaterno: form.apellidoPaterno.value,
+    apellidoMaterno: form.apellidoMaterno.value,
+    numeroControl: form.numeroControl.value,
+    generacion: form.generacion.value,
+    correo: form.correo.value,
+    telefono: form.telefono.value,
+    tallaChaleco: form.tallaChaleco.value,
+    tallaPlayera: form.tallaPlayera.value,
+  };
+
+  // Validaciones
+  const error = validarCampos(datos, {
+    nombre: { required: true, minLength: 3 },
+    correo: { required: true, type: "email" },
+    telefono: { required: true, type: "number", minLength: 10, maxLength: 15 },
+    tallaChaleco: { required: true },
+    tallaPlayera: { required: true },
+  });
+
+  if (error) {
+    setMensajeBackend(error);
+    return;
+  }
+
+  try {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const response = await fetch(`${apiUrl}/api/externo`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos),
+    });
+
+    const data = await response.json();
+    if (data.mensaje === "Error al registrar informacion, favor de intentarlo de nuevo") {
+      setMensajeBackend(data.mensaje);
+      return;
+    }
+    setMensajeBackend(data.mensaje || "Registro enviado correctamente");
+    cerrarModal4();
+    abrirModal5();
+  } catch (error) {
+    console.error("Error al enviar datos externos:", error);
+    setMensajeBackend("Error al conectar con el servidor.");
+  }
+};
+const descargarExcel = async () => {
+  try {
+    const response = await fetch("http://localhost:5001/api/exportar-excel");
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "alumnos_externos.xlsx";
+    a.click();
+  } catch (error) {
+    console.error("Error al descargar Excel:", error);
+  }
+};
+
+  // Login para alumnos
+const handlealumno = async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const numeroControl = form.numeroControl.value;
+
+  try {
+    if (numeroControl === "220411") {
+      descargarExcel();
+      return; // Evita abrir modal y romper apiExterna
+    }
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const buscar = await fetch(
+      `${apiUrl}/api/loginAlumno?numeroControl=${encodeURIComponent(numeroControl)}`
+    );
+
+    const respuesta = await buscar.json();
+
+    if (
+      respuesta.mensaje === "Numero de control de un externo, favor de intentarlo en el otro botón" ||
+      respuesta.mensaje === "Numero de control no asignado a un pago"
+    ) {
+      setMensajeBackend(respuesta.mensaje);
+      return;
+    }
+
+    setMensajeBackend(respuesta.mensaje);
+    setApiExterna(respuesta);
+
+    cerrarModal6();
+    abrirModal7();
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+    setMensajeBackend("Error al conectar con el servidor.");
+  }
+};
+
+  //Registro en la plataforma para externo
   const handleRegistro = async (e) => {
     e.preventDefault();
     const form = e.target;
     const datos = {
       nombre: form.nombre.value,
-      apellidoPaterno: form.apellidoPaterno.value,
-      apellidoMaterno: form.apellidoMaterno.value,
       curp: form.curp.value,
-      fechaNacimiento: form.fechaNacimiento.value,
-      nacionalidad: form.nacionalidad.value,
-      codigoControl: form.codigoControl.value,
       correo: form.correo.value,
-      telefono: form.telefono.value,
     };
+      const error = validarCampos(datos, {
+    nombre: { required: true, minLength: 3 },
+    curp: { required: true, minLength: 18, maxLength: 18 },
+    correo: { required: true, type: "email" },
+  });
 
+  if (error) {
+    setMensajeBackend(error);
+    return;
+  }
     const curpPrimeros8 = datos.curp.slice(0, 8);
-    const passwordHasheado = await hashPassword(curpPrimeros8);
 
     setUsuario(datos);
-    setClavesAcceso({ usuario: datos.correo, password: passwordHasheado });
+    setClavesAcceso({ usuario: datos.correo, password: curpPrimeros8 });
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/api/enviar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...datos, password: passwordHasheado }),
+        body: JSON.stringify({ ...datos, password: curpPrimeros8 }),
       });
 
       const data = await response.json();
-      setMensajeBackend(data.mensaje);
-
-      cerrarRegistro();
-      abrirClaves();
+      if (data.mensaje === "Credenciales inválidas") {
+        setMensajeBackend(data.mensaje);
+        return;
+      }
+    setMensajeBackend(data.mensaje);
+    setApiExterna(data.apiExterna);
+    cerrarModal1();
+    abrirModal3();
     } catch (error) {
       console.error("Error al enviar los datos:", error);
       setMensajeBackend("Error al conectar con el servidor.");
     }
+
+
   };
 
   return (
     <section id="registro" className="section-registro">
       <div className="registro-container">
-        <p>
-          ¿Eres egresado del <strong>Instituto Tecnológico de Aguascalientes</strong> en la carrera de Industrial? Haz clic en el botón de abajo:
+        <p className="registro-text">
+          ¿Formas parte de la comunidad del 
+          <strong> Instituto Tecnológico de Aguascalientes</strong> en la carrera de Ingeniería Industrial, 
+          o eres un invitado externo interesado en participar en este evento?  
+          Selecciona la opción correspondiente para continuar con tu registro:
         </p>
-        <button className="registro-btn" onClick={abrirRegistro}>
-          ¡Inscríbete aquí!
+
+        <button className="registro-btn" onClick={abrirModal1}>
+          Registro para Invitados Externos
+        </button>
+        
+        <button className="registro-btn" onClick={abrirModal6}>
+          Registro para Comunidad ITA
         </button>
       </div>
-
-      {modalRegistroAbierto && (
-        <div className="modal" onClick={cerrarRegistro}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarRegistro}>&times;</span>
+      {/* Registro */}
+      {modal1Abierto && (
+        <div className="modal-registro" onClick={cerrarModal1}>
+          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal1}>&times;</span>
+            {mensajeBackend && (
+            <div className="notificacion-error">
+              <p>{mensajeBackend}</p>
+            </div>
+            )}
             <h2>Registro de Egresados</h2>
+            <p className="aviso-privacidad">
+              Este registro es para uso exclusivo de la generación de la papeleta de pago.
+              En caso de ser estudiante del ITA, toda la información será manejada en tu
+              departamento correspondiente.
+            </p>
             <form className="form-registro" onSubmit={handleRegistro}>
-              <input type="text" name="nombre" placeholder="Nombre" required />
-              <input type="text" name="apellidoPaterno" placeholder="Apellido Paterno" required />
-              <input type="text" name="apellidoMaterno" placeholder="Apellido Materno" required />
-              <input type="text" name="curp" placeholder="CURP" required />
-              <input type="date" name="fechaNacimiento" required />
-              <input type="text" name="nacionalidad" placeholder="Nacionalidad" required />
-              <input type="text" name="codigoControl" placeholder="Código de Control" required />
-              <input type="email" name="correo" placeholder="Correo" required />
-              <input type="tel" name="telefono" placeholder="Teléfono" required />
-              <button type="submit">Registrar</button>
+              <div className="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" name="nombre" placeholder="Tu nombre" required />
+              </div>
+              <div className="form-group">
+                <label>CURP</label>
+                <input type="text" name="curp" placeholder="CURP" required />
+              </div>
+              <div className="form-group">
+                <label>Correo</label>
+                <input type="email" name="correo" placeholder="Correo electrónico"  />
+              </div>
+              <div style={{ marginTop: '15px' }}>
+                <button type="submit">Iniciar registro</button>
+                <p>si ya cuentas con un cuenta haz clik aqui, <a style={{cursor: "pointer"}} onClick={abrirModal2}>Iniciar Sesión</a></p>
+              </div>
             </form>
           </div>
         </div>
       )}
+      {/* Inicio Sesion */}
+      {modal2Abierto && (
+        <div className="modal-registro" onClick={cerrarModal2}>
+          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal2}>&times;</span>
+            {mensajeBackend && (
+              <div className="notificacion-error">
+                <p>{mensajeBackend}</p>
+              </div>
+            )}
+            <h2>Inicio de Sesión</h2>
+            <p>Ingresa con tu correo y contraseña para acceder y revisar el estado de tu pago.</p>
+            <form className="form-login" onSubmit={handlelogin}>
+              <div className="form-group">
+                <label>Correo</label>
+                <input type="email" name='correo' placeholder="Correo electrónico" required />
+              </div>
+              <div className="form-group">
+                <label>Contraseña</label>
+                <input type="password" name='password' placeholder="Contraseña" required />
+              </div>
+              <div className="form-group">
+                <label>Numero de Control</label>
+                <input type="text" name='numeroControl' placeholder="Numero de Control" required />
+              </div>
+              <button type="submit">Revisar Validacion</button>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* Modal Claves de acceso */}
+      {modal3Abierto && (
+        <div className="modal-registro" onClick={cerrarModal3}>
+          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal3}>&times;</span>
+            <h2 className="modal-title">Claves de Acceso</h2>
+            <p className="alerta-importante">
+              ES MUY IMPORTANTE: Anota tu <strong>Número de Control</strong> y papeleta de pago. 
+              Al cerrar esta ventana, se perderá esta información.
+            </p>
+            <div className="usuario-info">
+              <p><span>¡Felicidades {usuario.nombre}!</span></p>
+              <p><strong>Usuario:</strong> {clavesAcceso.usuario}</p>
+              <p><strong>Contraseña:</strong> {clavesAcceso.password}</p>
+              <p className="nota">¡Guarda esta información para iniciar sesión en el sistema!</p>
+            </div>
+            {apiExterna && apiExterna.data && (
+              <div className="pago-info">
+                <h3>Información del registro y pago</h3>
+                <div className="detalle">
+                  <p><strong>Número de Control:</strong> <span className="resaltado">{apiExterna.data.orden_externo.ncontrol}</span></p>
+                  <p><strong>Servicio:</strong> {apiExterna.data.orden_externo.servicio_nombre}</p>
+                  <p><strong>Monto:</strong> ${apiExterna.data.orden_caja.monto}</p>
+                  <p><strong>Fecha Límite:</strong> {apiExterna.data.orden_externo.fecha_limite}</p>
+                  <p><strong>PDF de pago:</strong> <a href={apiExterna.data.pdf_url} target="_blank" rel="noopener noreferrer">Descargar PDF</a></p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      {/* validacion externo */}
+      {modal4Abierto && (
+        <div className="modal-registro" onClick={cerrarModal4}>
+          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal4}>&times;</span>
+            {mensajeBackend && (
+              <div className="notificacion-error">
+                <p>{mensajeBackend}</p>
+              </div>
+            )}
+            {apiExterna && (
+              <div className="api-container">
+                <h3>Información del pago y registro del evento:</h3>
+                {(() => {
+                  if (apiExterna.data.estado_pago?.codigo === "VENCIDO") {
+                    return <p className="estado-pago vencido">⚠ Pago vencido - referencia expirada</p>;
+                  } 
+                  else if (!apiExterna.data.fecha_validacion) {
+                    return <p className="estado-pago no-validado">❌ Pago NO validado</p>;
+                  } 
+                  else {
+                    if (apiExterna.data.formulario_completado==true){
+                      return(
+                      <>
+                        <p className="estado-pago validado">✅ Formulario ya completado</p>
+                        <p className="estado-pago validado">✅ Pago validado el {apiExterna.data.fecha_validacion}</p>
+                      </> 
+                    );  
+                    }else{
+                    return (
+                      <div>
+                        <p className="estado-pago validado">
+                          ✅ Pago validado el {apiExterna.data.fecha_validacion}
+                        </p>
+                      <form className="form-login" onSubmit={handleForumularioExterno}>
+                      <div className="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" name='nombre' placeholder="Nombre" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Apellido Paterno</label>
+                        <input type="text" name='apellidoPaterno' placeholder="Apellido Paterno" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Apellido Materno</label>
+                        <input type="text" name='apellidoMaterno' placeholder="Apellido Materno" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Numero de Control</label>
+                        <input type="text" name='numeroControl' placeholder="EXT000000" required />
+                      </div>                
+                      <div className="form-group">
+                        <label>Generacion (opcional)</label>
+                        <input type="text" name='generacion' placeholder="Generacion" />
+                      </div>
+                      <div className="form-group">
+                        <label>Correo</label>
+                        <input type="email" name='correo' placeholder="Correo" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Telefono</label>
+                        <input type="text" name='telefono' placeholder="telefono" required />
+                      </div>
+                      <div className="form-group">
+                        <img src="./select/chaleco.jpg" alt="" />
+                        <label>Talla de Chaleco</label>
+                        <select name="tallaChaleco" required>
+                          <option value="">-- Selecciona tu talla --</option>
+                          <option value="CH">CH</option>
+                          <option value="M">M</option>
+                          <option value="G">G</option>
+                          <option value="EG">EG</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <img src="./select/playera.jpg" alt="" />
+                        <label>Talla de Playera</label>
+                        <select name="tallaPlayera" required>
+                          <option value="">-- Selecciona tu talla --</option>
+                          <option value="CH">CH</option>
+                          <option value="M">M</option>
+                          <option value="G">G</option>
+                          <option value="EG">EG</option>
+                          <option value="2EG">EG</option>
+                          <option value="3EG">EG</option>
+                        </select>
+                      </div>
+                      <button type="submit">Enviar</button>
+                      </form>
+                      </div>
+                    );
+                  }
+                }
+                })()}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      {/* enviado el formulario */}
+      {modal5Abierto && (
+        <div className="modal-registro" onClick={cerrarModal5}>
+          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal5}>&times;</span>
+                        {mensajeBackend && (
+                    <div className="notificacion-error">
+                      <p>{mensajeBackend}</p>
+                    </div>
+                  )}
+            <p>ahuebooo ya jala chido pa</p>
+          </div>
+        </div>
+      )}
+      {/* login alumno */}
+      {modal6Abierto && (
+        <div className="modal-registro" onClick={cerrarModal6}>
+          <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal6}>&times;</span>
+            {mensajeBackend && (
+              <div className="notificacion-error">
+                <p>{mensajeBackend}</p>
+              </div>
+            )}
+            <h2>Inicio de Sesión</h2>
+            <p>Ingresa tu numero de control y compueba el estado de tu pago y realizar tu registro.</p>
+            <form className="form-login" onSubmit={handlealumno}>
+              <div className="form-group">
+                <label>Numero de Control</label>
+                <input type="text" name='numeroControl' placeholder="Numero de Control" required />
+              </div>
+              <button type="submit">Revisar Validacion</button>
+            </form>
+          </div>
+        </div>
 
-      {modalClavesAbierto && (
-        <div className="modal" onClick={cerrarClaves}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarClaves}>&times;</span>
-            <h2>Claves de Acceso</h2>
-            <p>¡Felicidades {usuario.nombre}!</p>
-            <p>{mensajeBackend}</p>
-            <p><strong>Usuario:</strong> {clavesAcceso.usuario}</p>
-            <p><strong>Contraseña:</strong> {clavesAcceso.password}</p>
+      )}
+      {/* validacion alumno*/}
+      {modal7Abierto && (
+        <div className="modal-registro" onClick={cerrarModal7}>
+          <div className="modal-content-registroX" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal7}>&times;</span>
+            {mensajeBackend && (
+            <div className="notificacion-error">
+              <p>{mensajeBackend}</p>
+            </div>
+            )}
+            {apiExterna && (
+              <div className="api-container">
+              <h3>Información del pago y registro del evento:</h3>
+                {(() => {
+                  if (apiExterna.data.estado_pago?.codigo === "VENCIDO") {
+                    return <p className="estado-pago vencido">⚠ Pago vencido - referencia expirada</p>;
+                  } 
+                  else if (!apiExterna.data.fecha_validacion) {
+                    return <p className="estado-pago no-validado">❌ Pago NO validado</p>;
+                  } 
+                  else {
+                    if (apiExterna.data.formulario_completado==true){
+                      return(
+                        <>
+                          <p className="estado-pago validado">✅ Formulario ya completado</p>
+                          <p className="estado-pago validado">✅ Pago validado el {apiExterna.data.fecha_validacion}</p>
+                        </> 
+                      );
+                    }
+                    return (
+                      <div>
+                        <p className="estado-pago validado">
+                          ✅ Pago validado el {apiExterna.data.fecha_validacion}
+                        </p>
+                        <form className="form-login" onSubmit={handleForumularioAlumno}>
+                          <div className="form-group">
+                            <label>Nombre Completo</label>
+                            <input type="text" name='nombre' placeholder="Nombre Completo" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Apellido Paterno</label>
+                            <input type="text" name='apellidoPaterno' placeholder="Apellido Paterno" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Apellido Materno</label>
+                            <input type="text" name='apellidoMaterno' placeholder="Apellido Materno" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Numero de Control</label>
+                            <input type="text" name='numeroControl' placeholder="Numero de contro" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Semestre</label>
+                            <input type="text" name='semestre' placeholder="Generacion" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Taller a elegir</label>
+                            <select name="tallerElegir" required>
+                              <option value="">-- Selecciona tu taller --</option>
+                              {/* Talleres de 15 a 19 */}
+                              <option value="Gestion de Proyectos con enfoque PMBOK y Liderazgo Profesional">
+                                15 a 19 - Gestión de Proyectos con enfoque PMBOK y Liderazgo Profesional
+                              </option>
+                              <option value="Kit de herramientas del profesional: de la teoria a la trazabilidad de materiales">
+                                15 a 19 - Kit de herramientas del profesional: de la teoría a la trazabilidad de materiales
+                              </option>
+                              <option value="Control De Calidad">15 a 19 - Control De Calidad</option>
+                              <option value="Lean Manufacturing">15 a 19 - Lean Manufacturing</option>
+                              <option value="Cadena de suministro; planeacion de producción y materiales">
+                                15 a 19 - Cadena de suministro; planeación de producción y materiales
+                              </option>
+                              <option value="Lean manufacturing en taller de mantenimiento automotriz">
+                                15 a 19 - Lean manufacturing en taller de mantenimiento automotriz
+                              </option>
+                              <option value="Mejora continua y gestion de project management">
+                                15 a 19 - Mejora continua y gestión de project management
+                              </option>
+                              <option value="Calidad en la industria automotriz">15 a 19 - Calidad en la industria automotriz</option>
+                              <option value="Los nuevos productos en la industria / Configuración y datos maestros en un ERP">
+                                15 a 19 - Primer día: "Los nuevos productos en la industria" | Segundo día: "Configuración y datos maestros en un ERP"
+                              </option>
+                              <option value="7 herramientas de calidad">15 a 19 - 7 herramientas de calidad</option>
+                              <option value="Cadena de suministros: la logística como clave en la eficiencia de la industria actual">
+                                15 a 19 - Cadena de suministros: la logística como clave en la eficiencia de la industria actual
+                              </option>
+                              <option value="Mejora continua en la industria textil">15 a 19 - Mejora continua en la industria textil</option>
+                              <option value="Google apps para ingenieros industriales: Automatiza, optimiza y aplica lean manufacturing">
+                                15 a 19 - Google apps para ingenieros industriales: Automatiza, optimiza y aplica lean manufacturing
+                              </option>
+                              <option value="Calidad en Acción: Estrategias para la Competitividad en Servicios">
+                                15 a 19 - Calidad en Acción: Estrategias para la Competitividad en Servicios
+                              </option>
+                              <option value="Evaluación de proyectos y proyectos de inversión">
+                                15 a 19 - Evaluación de proyectos y proyectos de inversión
+                              </option>
+                              <option value="Core Tools: Desarrollo de Procesos y Productos asegurando la excelencia en calidad">
+                                15 a 19 - Core Tools: Desarrollo de Procesos y Productos asegurando la excelencia en calidad
+                              </option>
+                              <option value="Estandarización e Impacto de Partes Eléctricas en la Industria Actualy R-FMEA & Hazard Map">
+                                15 a 19 - Estandarización e Impacto de Partes Eléctricas en la Industria Actual y R-FMEA & Hazard Map
+                              </option>
+                              <option value="Planeación y supervisión de proyectos">15 a 19 - Planeación y supervisión de proyectos</option>
+
+                              {/* Talleres de 9 a 13 */}
+                              <option value="Educación Financiera">9 a 13 - Educación Financiera</option>
+                              <option value="Liderazgo AI">9 a 13 - Liderazgo AI</option>
+                              <option value="Resolución de problemas por medio de la metodología QC story">
+                                9 a 13 - Resolución de problemas por medio de la metodología QC story
+                              </option>
+                              <option value="Resistencia al cambio">9 a 13 - Resistencia al cambio</option>
+                              <option value="Los nuevos retos y paradigmas del ingeniero industrial">
+                                9 a 13 - Los nuevos retos y paradigmas del ingeniero industrial
+                              </option>
+                              <option value="AMEF & CP AIAG-VDA primera edición">9 a 13 - AMEF & CP AIAG-VDA primera edición</option>
+                              <option value="Innovacion y cultura de mejora">9 a 13 - Innovación y cultura de mejora</option>
+                              <option value="Monozukuri y Kaizen: El arte de crear valor con eficiencia">
+                                9 a 13 - Monozukuri y Kaizen: El arte de crear valor con eficiencia
+                              </option>
+                              <option value="Procesos Clave en la Industria Automotriz con Enfoque en la Aplicación de ISO45001 y Gestión de Riesgos Laborales">
+                                9 a 13 - Procesos Clave en la Industria Automotriz con enfoque en ISO45001 y Gestión de Riesgos Laborales
+                              </option>
+                              <option value="Procesos que transforman: ¿Cómo el ingeniero industrial puede cambiar el mundo?">
+                                9 a 13 - "Procesos que transforman" - ¿Cómo el ingeniero industrial puede cambiar el mundo?
+                              </option>
+                              <option value="Logística 4.0: La Ingeniería detrás de Amazon">9 a 13 - Logística 4.0: La Ingeniería detrás de Amazon</option>
+                              <option value="Mejora en la Cadena de Valor en los Productos y Servicios">
+                                9 a 13 - Mejora en la Cadena de Valor en los Productos y Servicios
+                              </option>
+                              <option value="El rol de Ingeniero Industrial en la industria 4.0">
+                                9 a 13 - El rol del Ingeniero Industrial en la Industria 4.0
+                              </option>
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <label>Numero de seguro social</label>
+                            <input type="text" name='nss' placeholder="Numero de seguro social" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Correo electronico</label>
+                            <input type="email" name='correo' placeholder="Correo Electronico" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Nombre de Contacto de Emergencia</label>
+                            <input type="text" name='nombreEme' placeholder="Contacto " required />
+                          </div>
+                          <div className="form-group">
+                            <label>Apellido Paterno de Contacto de Emergencia</label>
+                            <input type="text" name='apellidoPaternoEme' placeholder="Contacto" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Apellido Materno de Contacto de Emergencia</label>
+                            <input type="text" name='apellidoMaternoEme' placeholder="Contacto" required />
+                          </div>
+                          <div className="form-group">
+                            <label>Telefono de Contacto de Emergencia</label>
+                            <input type="text" name='telefonoEme' placeholder="Telefono Contacto" required />
+                          </div>
+                          <div className="form-group">
+                            <img src="./select/chaleco.jpg" alt="" />
+                            <label>Talla de Chaleco</label>
+                            <select name="tallaChaleco" required>
+                              <option value="" style={{color: "#ffffff"}}>-- Selecciona tu talla --</option>
+                              <option value="CH">CH</option>
+                              <option value="M">M</option>
+                              <option value="G">G</option>
+                              <option value="EG">EG</option>
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <img src="./select/playera.jpg" alt="" />
+                            <label>Talla de Playera</label>
+                            <select name="tallaPlayera" required>
+                              <option value="">-- Selecciona tu talla --</option>
+                              <option value="CH">CH</option>
+                              <option value="M">M</option>
+                              <option value="G">G</option>
+                              <option value="EG">EG</option>
+                              <option value="2EG">EG</option>
+                              <option value="3EG">EG</option>
+                            </select>
+                          </div>
+                          <button type="submit">Enviar</button>
+                        </form>
+                      </div>
+                    );
+                  }
+                })()}
+              </div>
+            )}
           </div>
         </div>
       )}
