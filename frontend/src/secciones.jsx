@@ -174,7 +174,7 @@ export const Ponentes = () => {
     },
     {
       nombre: "PANEL",
-      imagen: "./ponentes/ponente3.jpg",
+      imagen: "https://i.imgur.com/xqwJrQ9.png",
       titulo: "Mujeres Industriales: Legado y Futuro",
       carrera: "",
       descripcion:
@@ -183,7 +183,7 @@ export const Ponentes = () => {
     },
     {
       nombre: "CONFERENCIAS VIRTUALES",
-      imagen: "./ponentes/ponente3.jpg",
+      imagen: "https://i.imgur.com/xqwJrQ9.png",
       titulo: "Egresados en la Modalidad a Distancia",
       carrera: "Consultor CX 6 sigma y NPS",
       descripcion:

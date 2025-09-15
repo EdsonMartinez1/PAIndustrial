@@ -48,8 +48,8 @@ const App = () => {
             <li><a href="#legado" onClick={handleLinkClick}>Legado</a></li>
             <li><a href="#programas" onClick={handleLinkClick}>Lista de Eventos</a></li>
             <li><a href="#ponentes" onClick={handleLinkClick}>Ponentes</a></li>
-            <li><a href="#registro" onClick={handleLinkClick}>Registro</a></li>
-            <li><a href="#contacto" className="btn" onClick={handleLinkClick}>Contáctanos</a></li>
+            <li><a href="#contacto" onClick={handleLinkClick}>Contacto</a></li>
+            <li><a href="#registro" className="btn" onClick={handleLinkClick}>Registro</a></li>
           </ul>
         </nav>
 
@@ -63,7 +63,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={
             <main>
-              <Inicio titulo="Celebrando 50 años de excelencia académica" descripcion="Bienvenido a la página de 50 aniversario de Instituto Tecnológico de Aguascalientes." dataAos="fade-up" />
+              <Inicio titulo="Celebrando 50 AÑOS de EXCELECIA ACADEMICA" descripcion="Bienvenid@s a la página de 50 aniversario de la carrera de Ingenieria Industrial del Instituto Tecnológico de Aguascalientes." dataAos="fade-up" />
               <Historia dataAos="fade-up" />
               <ContadorRegresivo fechaObjetivo="2025-10-13T00:00:00" dataAos="zoom-in" />
               <Legado dataAos="fade-up" />

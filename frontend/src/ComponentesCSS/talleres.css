@@ -18,7 +18,7 @@
 
 .nueva-pagina-text {
   font-size: 1.1rem;
-  color: #4a5568;
+  color: #e2e8f0;
   margin-bottom: 2rem;
 }
 
@@ -28,6 +28,12 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   padding: 1rem 0;
+}
+
+.dia-title{
+  color: #fbbf24;
+  font-size: 1.8rem;
+  margin: 2rem 0 1rem 0;
 }
 
 /* Tarjetas */
@@ -119,6 +125,24 @@
 .modal-button:hover {
   background: #2c5282;
 }
+
+/* botn calendario */
+.calendario-container {
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.calendario-img {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+
+
 
 /* Botón regresar */
 .nueva-pagina-button {
