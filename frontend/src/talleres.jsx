@@ -311,6 +311,17 @@ const Talleres = () => {
   const navigate = useNavigate();
   const [tallerSeleccionado, setTallerSeleccionado] = useState(null);
 
+  // Carrusel
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const images = [
+    "./logos/C1.png",
+    "./logos/c2.jpg",
+    "./logos/c3.jpg"
+  ];
+
+  // Cambio automático cada 4 segundos
+  
+
   // Filtrar talleres por día
   const talleresLunes = talleres.filter((t) =>
     t.horario.startsWith("15:00 - 19:00")
@@ -338,50 +349,80 @@ const Talleres = () => {
     <div className="nueva-pagina-container">
       <h1 className="nueva-pagina-title">Talleres de Ingeniería Industrial</h1>
       <p className="nueva-pagina-text">
-        Explora los talleres que tenemos para ti{" "}
+        Explora los talleres que tenemos para ti
       </p>
 
       {/* Sección Lunes */}
-      <h2 className="dia-title">Talleres 15:00 - 17:00</h2>
+      <h2 className="dia-title">Talleres 15:00 - 19:00</h2>
       {renderTalleres(talleresLunes)}
 
       {/* Sección Martes */}
-      <h2 className="dia-title">Talleres 9:00 - 13:00 </h2>
+      <h2 className="dia-title">Talleres 9:00 - 13:00</h2>
       {renderTalleres(talleresMartes)}
 
-      {/* Apartado de Calendario */}
+      {/* Apartado de Calendario (Carrusel) */}
       <div className="calendario-container">
         <h2 className="dia-title"> Calendario Semanal de Eventos</h2>
-        <img
-          src="./logos/hroario.png"
-          alt="Calendario semanal de eventos"
-          className="calendario-img"
-        />
+
+        <div className="carousel">
+          {/* Botón anterior */}
+          <button
+            className="carousel-btn prev"
+            onClick={() =>
+              setCurrentIndex((prev) =>
+                prev === 0 ? images.length - 1 : prev - 1
+              )
+            }
+          >
+            ❮
+          </button>
+
+          {/* Imagen */}
+          <img
+            src={images[currentIndex]}
+            alt={`Calendario ${currentIndex + 1}`}
+            className="calendario-img"
+          />
+
+          {/* Botón siguiente */}
+          <button
+            className="carousel-btn next"
+            onClick={() =>
+              setCurrentIndex((prev) =>
+                prev === images.length - 1 ? 0 : prev + 1
+              )
+            }
+          >
+            ❯
+          </button>
+        </div>
+
+        {/* Indicadores */}
+        <div className="carousel-indicators">
+          {images.map((_, idx) => (
+            <span
+              key={idx}
+              className={`dot ${idx === currentIndex ? "active" : ""}`}
+              onClick={() => setCurrentIndex(idx)}
+            ></span>
+          ))}
+        </div>
       </div>
-      {/* Apartado de kit */}
-<div className="calendario-container">
-  <h2 className="dia-title">Kit Industrial - $650</h2>
-  <p>Esto puedes conseguir asistiendo al 50 ANIVERSARIO DE LA CARRERA DE INDUSTRIAL</p>
 
-  <div className="kit-container">
-    <img
-      src="./logos/kit1.png"
-      alt="Kit parte 1"
-      className="kit-img"
-    />
-    <img
-      src="./logos/kit2.png"
-      alt="Kit parte 2"
-      className="kit-img"
-    />
-    <img
-      src="./logos/kit3.png"
-      alt="Kit parte 3"
-      className="kit-img"
-    />
-  </div>
-</div>
+      {/* Apartado de Kit */}
+      <div className="calendario-container">
+        <h2 className="dia-title">Kit Industrial - $650</h2>
+        <p>
+          Esto puedes conseguir asistiendo al 50 ANIVERSARIO DE LA CARRERA DE
+          INDUSTRIAL
+        </p>
 
+        <div className="kit-container">
+          <img src="./logos/kit1.png" alt="Kit parte 1" className="kit-img" />
+          <img src="./logos/kit2.png" alt="Kit parte 2" className="kit-img" />
+          <img src="./logos/kit3.png" alt="Kit parte 3" className="kit-img" />
+        </div>
+      </div>
 
       {/* Modal de Taller */}
       {tallerSeleccionado && (
@@ -422,3 +463,4 @@ const Talleres = () => {
 };
 
 export default Talleres;
+

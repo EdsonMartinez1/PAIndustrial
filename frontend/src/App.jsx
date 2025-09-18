@@ -63,7 +63,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={
             <main>
-              <Inicio titulo="Celebrando 50 AÑOS de EXCELECIA ACADEMICA" descripcion="Bienvenid@s a la página de 50 aniversario de la carrera de Ingenieria Industrial del Instituto Tecnológico de Aguascalientes." dataAos="fade-up" />
+              <Inicio titulo="Celebrando 50 AÑOS de EXCELENCIA ACADEMICA" descripcion="Bienvenid@s a la página de 50 aniversario de la carrera de Ingenieria Industrial del Instituto Tecnológico de Aguascalientes." dataAos="fade-up" />
               <Historia dataAos="fade-up" />
               <ContadorRegresivo fechaObjetivo="2025-10-13T00:00:00" dataAos="zoom-in" />
               <Legado dataAos="fade-up" />

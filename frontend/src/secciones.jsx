@@ -124,14 +124,13 @@ export const Ponentes = () => {
 
   const ponentes = [
     {
-      nombre: "LUIS SOCONINI",
-      imagen: "./ponentes/ponente1.jpg",
-      titulo:
-        "Metodología Lean Six Sigma e IA 4.0: innovación y Certificación para la competitividad Global",
-      carrera: "Director General de Lean Six Sigma Institute",
+      nombre: "ROMEO MUÑOZ",
+      imagen: "./ponentes/RomMuñozpng.png",
+      titulo: "Kikubari Kaizen: el detalle invisible que transforma la manufactura",
+      carrera: "Consultor CX 6 sigma y NPS",
       descripcion:
-        "Explora cómo se aplican principios de ingeniería industrial en sectores clave.",
-      fecha: "Miércoles 15 de octubre, 13:00 hrs."
+        "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
+      fecha: "Jueves 16 de octubre, 13:00 hrs"
     },
     {
       nombre: "ABRAHAM HERNÁNDEZ",
@@ -163,15 +162,7 @@ export const Ponentes = () => {
         "Otra perspectiva sobre integración de conocimientos en ingeniería.",
       fecha: "Viernes 17 de octubre, 13:00 hrs"
     },
-    {
-      nombre: "ROMEO MUÑOZ",
-      imagen: "./ponentes/RomMuñozpng.png",
-      titulo: "Kikubari Kaizen: el detalle invisible que transforma la manufactura",
-      carrera: "Consultor CX 6 sigma y NPS",
-      descripcion:
-        "Visión amplia sobre colaboración entre áreas en proyectos industriales.",
-      fecha: "Jueves 16 de octubre, 13:00 hrs"
-    },
+
     {
       nombre: "PANEL",
       imagen: "https://i.imgur.com/xqwJrQ9.png",
@@ -405,10 +396,10 @@ const handleForumularioAlumno = async (e) => {
 
     const data = await response.json();
 
-    if (data.mensaje === "Error al registrar informacion, favor de intentarlo de nuevo.") {
+    if (data.mensaje === "Error al registrar información, favor de intentarlo de nuevo") {
       setMensajeBackend(data.mensaje);
       return;
-    }setMensajeBackend(data.mensaje || "Registro de alumno enviado correctamente");
+    }setMensajeBackend(data.mensaje || "Registro de alumno guardado correctamente");
     cerrarModal7();
     abrirModal5();
   } catch (error) {
@@ -481,7 +472,6 @@ const descargarExcel = async () => {
     console.error("Error al descargar Excel:", error);
   }
 };
-
   // Login para alumnos
 const handlealumno = async (e) => {
   e.preventDefault();
@@ -489,7 +479,7 @@ const handlealumno = async (e) => {
   const numeroControl = form.numeroControl.value;
 
   try {
-    if (numeroControl === "220411") {
+    if (numeroControl === "878787") {
       descargarExcel();
       return; // Evita abrir modal y romper apiExterna
     }
@@ -502,8 +492,8 @@ const handlealumno = async (e) => {
     const respuesta = await buscar.json();
 
     if (
-      respuesta.mensaje === "Numero de control de un externo, favor de intentarlo en el otro botón" ||
-      respuesta.mensaje === "Numero de control no asignado a un pago"
+      respuesta.mensaje === "Número de control corresponde a un externo. Intenta en el otro botón." ||
+      respuesta.mensaje === "Número de control no asignado a un pago"
     ) {
       setMensajeBackend(respuesta.mensaje);
       return;
@@ -519,7 +509,6 @@ const handlealumno = async (e) => {
     setMensajeBackend("Error al conectar con el servidor.");
   }
 };
-
   //Registro en la plataforma para externo
   const handleRegistro = async (e) => {
     e.preventDefault();
@@ -591,7 +580,7 @@ const handlealumno = async (e) => {
       {modal1Abierto && (
         <div className="modal-registro" onClick={cerrarModal1}>
           <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal1}>&times;</span>
+            <span className="close" onClick={() => {cerrarModal1();window.location.reload();}}>&times;</span>
             {mensajeBackend && (
             <div className="notificacion-error">
               <p>{mensajeBackend}</p>
@@ -628,7 +617,7 @@ const handlealumno = async (e) => {
       {modal2Abierto && (
         <div className="modal-registro" onClick={cerrarModal2}>
           <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal2}>&times;</span>
+            <span className="close" onClick={() => {cerrarModal2();window.location.reload();}}>&times;</span>
             {mensajeBackend && (
               <div className="notificacion-error">
                 <p>{mensajeBackend}</p>
@@ -658,7 +647,7 @@ const handlealumno = async (e) => {
       {modal3Abierto && (
         <div className="modal-registro" onClick={cerrarModal3}>
           <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal3}>&times;</span>
+            <span className="close" onClick={() => {cerrarModal3();window.location.reload();}}>&times;</span>
             <h2 className="modal-title">Claves de Acceso</h2>
             <p className="alerta-importante">
               ES MUY IMPORTANTE: Anota tu <strong>Número de Control</strong> y papeleta de pago. 
@@ -689,7 +678,7 @@ const handlealumno = async (e) => {
       {modal4Abierto && (
         <div className="modal-registro" onClick={cerrarModal4}>
           <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal4}>&times;</span>
+            <span className="close" onClick={() => {cerrarModal4();window.location.reload();}}>&times;</span>
             {mensajeBackend && (
               <div className="notificacion-error">
                 <p>{mensajeBackend}</p>
@@ -788,13 +777,31 @@ const handlealumno = async (e) => {
       {modal5Abierto && (
         <div className="modal-registro" onClick={cerrarModal5}>
           <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal5}>&times;</span>
-                        {mensajeBackend && (
-                    <div className="notificacion-error">
-                      <p>{mensajeBackend}</p>
-                    </div>
-                  )}
-            <p>ahuebooo ya jala chido pa</p>
+            <span className="close" onClick={() => {cerrarModal5();window.location.reload();}}>&times;</span>
+
+            {mensajeBackend && (
+              <div className="notificacion-error">
+                <p>{mensajeBackend}</p>
+              </div>
+            )}
+
+            <div className="modal-header-registro">
+              <h2>¡Registro exitoso 🎉!</h2>
+            </div>
+
+            <div className="modal-body-registro">
+              <p>Tu registro fue procesado correctamente.</p>
+              <p>Te esperamos con entusiasmo en el evento.</p>
+              <p className="evento-fecha">
+                📅 El evento será el <strong>13/10/2025</strong>  
+                <br />
+                ⏳ Faltan <strong>25 días</strong>
+              </p>
+            </div>
+
+            <div className="modal-footer-registro">
+            <button className="btn-primary" onClick={() => {cerrarModal5();window.location.reload();}}>    Continuar</button>
+            </div>
           </div>
         </div>
       )}
@@ -802,7 +809,7 @@ const handlealumno = async (e) => {
       {modal6Abierto && (
         <div className="modal-registro" onClick={cerrarModal6}>
           <div className="modal-content-registro" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal6}>&times;</span>
+            <span className="close" onClick={() => {cerrarModal6();window.location.reload();}}>&times;</span>
             {mensajeBackend && (
               <div className="notificacion-error">
                 <p>{mensajeBackend}</p>
@@ -825,7 +832,7 @@ const handlealumno = async (e) => {
       {modal7Abierto && (
         <div className="modal-registro" onClick={cerrarModal7}>
           <div className="modal-content-registroX" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={cerrarModal7}>&times;</span>
+            <span className="close" onClick={() => {cerrarModal7();window.location.reload();}}>&times;</span>
             {mensajeBackend && (
             <div className="notificacion-error">
               <p>{mensajeBackend}</p>
@@ -880,78 +887,11 @@ const handlealumno = async (e) => {
                             <label>Taller a elegir</label>
                             <select name="tallerElegir" required>
                               <option value="">-- Selecciona tu taller --</option>
-                              {/* Talleres de 15 a 19 */}
-                              <option value="Gestion de Proyectos con enfoque PMBOK y Liderazgo Profesional">
-                                15 a 19 - Gestión de Proyectos con enfoque PMBOK y Liderazgo Profesional
-                              </option>
-                              <option value="Kit de herramientas del profesional: de la teoria a la trazabilidad de materiales">
-                                15 a 19 - Kit de herramientas del profesional: de la teoría a la trazabilidad de materiales
-                              </option>
-                              <option value="Control De Calidad">15 a 19 - Control De Calidad</option>
-                              <option value="Lean Manufacturing">15 a 19 - Lean Manufacturing</option>
-                              <option value="Cadena de suministro; planeacion de producción y materiales">
-                                15 a 19 - Cadena de suministro; planeación de producción y materiales
-                              </option>
-                              <option value="Lean manufacturing en taller de mantenimiento automotriz">
-                                15 a 19 - Lean manufacturing en taller de mantenimiento automotriz
-                              </option>
-                              <option value="Mejora continua y gestion de project management">
-                                15 a 19 - Mejora continua y gestión de project management
-                              </option>
-                              <option value="Calidad en la industria automotriz">15 a 19 - Calidad en la industria automotriz</option>
-                              <option value="Los nuevos productos en la industria / Configuración y datos maestros en un ERP">
-                                15 a 19 - Primer día: "Los nuevos productos en la industria" | Segundo día: "Configuración y datos maestros en un ERP"
-                              </option>
-                              <option value="7 herramientas de calidad">15 a 19 - 7 herramientas de calidad</option>
-                              <option value="Cadena de suministros: la logística como clave en la eficiencia de la industria actual">
-                                15 a 19 - Cadena de suministros: la logística como clave en la eficiencia de la industria actual
-                              </option>
-                              <option value="Mejora continua en la industria textil">15 a 19 - Mejora continua en la industria textil</option>
-                              <option value="Google apps para ingenieros industriales: Automatiza, optimiza y aplica lean manufacturing">
-                                15 a 19 - Google apps para ingenieros industriales: Automatiza, optimiza y aplica lean manufacturing
-                              </option>
-                              <option value="Calidad en Acción: Estrategias para la Competitividad en Servicios">
-                                15 a 19 - Calidad en Acción: Estrategias para la Competitividad en Servicios
-                              </option>
-                              <option value="Evaluación de proyectos y proyectos de inversión">
-                                15 a 19 - Evaluación de proyectos y proyectos de inversión
-                              </option>
-                              <option value="Core Tools: Desarrollo de Procesos y Productos asegurando la excelencia en calidad">
-                                15 a 19 - Core Tools: Desarrollo de Procesos y Productos asegurando la excelencia en calidad
-                              </option>
-                              <option value="Estandarización e Impacto de Partes Eléctricas en la Industria Actualy R-FMEA & Hazard Map">
-                                15 a 19 - Estandarización e Impacto de Partes Eléctricas en la Industria Actual y R-FMEA & Hazard Map
-                              </option>
-                              <option value="Planeación y supervisión de proyectos">15 a 19 - Planeación y supervisión de proyectos</option>
-
-                              {/* Talleres de 9 a 13 */}
-                              <option value="Educación Financiera">9 a 13 - Educación Financiera</option>
-                              <option value="Liderazgo AI">9 a 13 - Liderazgo AI</option>
-                              <option value="Resolución de problemas por medio de la metodología QC story">
-                                9 a 13 - Resolución de problemas por medio de la metodología QC story
-                              </option>
-                              <option value="Resistencia al cambio">9 a 13 - Resistencia al cambio</option>
-                              <option value="Los nuevos retos y paradigmas del ingeniero industrial">
-                                9 a 13 - Los nuevos retos y paradigmas del ingeniero industrial
-                              </option>
-                              <option value="AMEF & CP AIAG-VDA primera edición">9 a 13 - AMEF & CP AIAG-VDA primera edición</option>
-                              <option value="Innovacion y cultura de mejora">9 a 13 - Innovación y cultura de mejora</option>
-                              <option value="Monozukuri y Kaizen: El arte de crear valor con eficiencia">
-                                9 a 13 - Monozukuri y Kaizen: El arte de crear valor con eficiencia
-                              </option>
-                              <option value="Procesos Clave en la Industria Automotriz con Enfoque en la Aplicación de ISO45001 y Gestión de Riesgos Laborales">
-                                9 a 13 - Procesos Clave en la Industria Automotriz con enfoque en ISO45001 y Gestión de Riesgos Laborales
-                              </option>
-                              <option value="Procesos que transforman: ¿Cómo el ingeniero industrial puede cambiar el mundo?">
-                                9 a 13 - "Procesos que transforman" - ¿Cómo el ingeniero industrial puede cambiar el mundo?
-                              </option>
-                              <option value="Logística 4.0: La Ingeniería detrás de Amazon">9 a 13 - Logística 4.0: La Ingeniería detrás de Amazon</option>
-                              <option value="Mejora en la Cadena de Valor en los Productos y Servicios">
-                                9 a 13 - Mejora en la Cadena de Valor en los Productos y Servicios
-                              </option>
-                              <option value="El rol de Ingeniero Industrial en la industria 4.0">
-                                9 a 13 - El rol del Ingeniero Industrial en la Industria 4.0
-                              </option>
+                              {apiExterna.data.talleres && apiExterna.data.talleres.map((taller) => (
+                                <option key={taller.id} value={taller.nombre}>
+                                  {taller.nombre}
+                                </option>
+                              ))}
                             </select>
                           </div>
                           <div className="form-group">

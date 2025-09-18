@@ -127,18 +127,57 @@
 }
 
 /* botn calendario */
-.calendario-container {
-  margin-top: 40px;
-  text-align: center;
-  width: 100%;
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .calendario-img {
-  width: 100%;
-  max-width: 1000px;
+  width: 80%;
+  max-width: 600px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: opacity 0.5s ease-in-out;
+  display: block;
 }
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+.carousel-btn:hover { background: rgba(0,0,0,0.7); }
+
+.carousel-indicators {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dot.active { background-color: #007bff; }
 
 .kit-container {
   display: flex;

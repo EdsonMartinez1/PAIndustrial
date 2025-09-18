@@ -120,9 +120,9 @@ app.post("/api/externo", async (req, res) => {
     `;
     await pool.query(validacion, [numeroControl, true]);
 
-    res.json({ mensaje: "✅ Registro de externo guardado correctamente" });
+    res.json({ mensaje: "Registro de externo guardado correctamente" });
   } catch (error) {
-    res.json({ mensaje: "❌ Error al registrar información, favor de intentarlo de nuevo" });
+    res.json({ mensaje: "Error al registrar información, favor de intentarlo de nuevo" });
   }
 });
 // ======================
@@ -170,16 +170,22 @@ app.post("/api/alumno", async (req, res) => {
       tallaPlayera,
       tallaChaleco,
     ]);
-
+        await pool.query(
+      "UPDATE talleres SET cupo = cupo + 1 WHERE Nombre = ? AND cupo < 25",
+      [tallerElegir]
+    );
     const validacion = `
       INSERT INTO validacion (numeroControl, validado)
       VALUES (?, ?)
     `;
     await pool.query(validacion, [numeroControl, true]);
+  
 
-    res.json({ mensaje: "✅ Registro de alumno guardado correctamente" });
+
+
+    res.json({ mensaje: "Registro de alumno guardado correctamente" });
   } catch (error) {
-    res.json({ mensaje: "❌ Error al registrar información, favor de intentarlo de nuevo" });
+    res.json({ mensaje: "Error al registrar información, favor de intentarlo de nuevo" });
   }
 });
 // ======================
@@ -200,9 +206,13 @@ app.get("/api/loginAlumno", async (req, res) => {
 
     if (rows.length !== 0) {
       return res.json({
-        mensaje: "⚠️ Número de control corresponde a un externo. Intenta en el otro botón.",
+        mensaje: "Número de control corresponde a un externo. Intenta en el otro botón.",
       });
     }
+    const [cursos] = await pool.query(
+      "SELECT * FROM talleres WHERE cupo < 25"
+    );
+
 
     const [validacion] = await pool.query(
       "SELECT validado FROM validacion WHERE numeroControl = ?",
@@ -216,13 +226,14 @@ app.get("/api/loginAlumno", async (req, res) => {
     );
 
     if (!externoResp.ok) {
-      return res.json({ mensaje: "⚠️ Número de control no asignado a un pago" });
+      return res.json({ mensaje: "Número de control no asignado a un pago" });
     }
 
     const externoData = await externoResp.json();
 
     return res.json({
       data: {
+        talleres: cursos,
         estado_pago: externoData.estado_pago,
         fecha_validacion: externoData.fecha_validacion,
         formulario_completado,
@@ -259,7 +270,9 @@ app.get("/api/login", async (req, res) => {
     if (rows.length === 0) {
       return res.json({ mensaje: "Credenciales inválidas" });
     }
-
+        const [cursos] = await pool.query(
+      "SELECT * FROM talleres WHERE cupo < 25"
+    );
     const [validacion] = await pool.query(
       "SELECT validado FROM validacion WHERE numeroControl = ?",
       [numeroControl]
@@ -279,6 +292,7 @@ app.get("/api/login", async (req, res) => {
 
     res.json({
       data: {
+        talleres: cursos,
         estado_pago: externoData.estado_pago,
         fecha_validacion: externoData.fecha_validacion,
         formulario_completado,
@@ -299,7 +313,7 @@ app.post("/api/enviar", async (req, res) => {
 
   if (!nombre || !correo || !password) {
     return res.json({
-      mensaje: "⚠️ Nombre, correo y contraseña son obligatorios",
+      mensaje: "Nombre, correo y contraseña son obligatorios",
     });
   }
 
@@ -333,13 +347,13 @@ app.post("/api/enviar", async (req, res) => {
     ]);
 
     res.json({
-      mensaje: "✅ Usuario registrado satisfactoriamente, favor de iniciar sesión",
+      mensaje: "Usuario registrado satisfactoriamente, favor de iniciar sesión",
       apiExterna: externoData,
     });
   } catch (error) {
     console.error("Error al registrar usuario:", error);
     res.json({
-      mensaje: "❌ Error al crear un nuevo registro, inténtalo de nuevo",
+      mensaje: "Error al crear un nuevo registro, inténtalo de nuevo",
     });
   }
 });
